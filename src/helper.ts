@@ -1,6 +1,6 @@
 import axios from 'axios';
 import fs from 'fs';
-import * as apitypes from './types';
+import * as apitypes from './apitypes';
 export const credentials: {
     id: string,
     secret: string,
@@ -11,6 +11,13 @@ export const credentials: {
     secret: '',
     key: '',
 };
+
+export enum Ruleset {
+    osu = 0,
+    taiko = 1,
+    fruits = 2,
+    mania = 3
+}
 
 export function oAuth(): apitypes.OAuth {
     const str = fs.readFileSync(`./config/osuauth.json`, 'utf-8');
@@ -56,7 +63,14 @@ export async function get(url: string, params: { [id: string]: any; }, tries: nu
     }
     let inp = new URL(url);
     for (const key in params) {
-        inp.searchParams.append(key, params[key]);
+        if (Array.isArray(params[key])) {
+            const _temp: any[] = params[key];
+            for (const elem of _temp) {
+                inp.searchParams.append(key + '[]', elem);
+            }
+        } else {
+            inp.searchParams.append(key, params[key]);
+        }
     }
     if (!credentials.auth) {
         try {

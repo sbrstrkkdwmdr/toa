@@ -1,14 +1,17 @@
+import * as apitypes from '../apitypes';
 import * as helper from '../helper';
-import * as apitypes from '../types';
+import { Dict } from '../types';
 
 export async function profile(i: {
-    name: string,
+    name?: string,
     mode?: apitypes.GameMode;
+    id?: string,
 }) {
-    if (!i?.mode) {
-        i.mode = 'osu';
+    if (!i.name && !i.id) throw new Error('Missing an ID or username to lookup');
+    let url = helper.baseUrl.v2 + `/users/${i.name}`;
+    if (i?.mode) {
+        url += `/${i.mode}`;
     }
-    const url = helper.baseUrl.v2 + `/users/${i.name}/${i.mode}/`;
     return await helper.get(
         url,
         {}
@@ -19,14 +22,16 @@ export async function recentActivity(i: {
     name: string,
     limit?: number,
 }) {
+    const url = helper.baseUrl.v2 + `/users/${i.name}/recent_activity`;
     if (!i?.limit) {
         i.limit = 100;
     }
-    const url = helper.baseUrl.v2 + `/users/${i.name}/recent_activity`;
+    let params: Dict = {
+        limit: 100,
+    };
+    if (i.limit) params['limit'] = i.limit;
+
     return await helper.get(
-        url,
-        {
-            limit: i.limit
-        }
+        url, params
     ) as Promise<apitypes.Event[]>;
 } 
