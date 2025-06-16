@@ -8,4 +8,5 @@ export function login(clientId: string, clientSecret: string) {
 export * as beatmaps from './v2/beatmaps';
 export * as scores from './v2/scores';
 export * as users from './v2/users';
+export * as wiki from './v2/wiki';
 

@@ -79,13 +79,13 @@ couldn't think of a better name than TypeScript osu! Api (wrapper)
 - [ ] DELETE /score-pins/{score}
 - [ ] PUT /score-pins/{score}
 - [ ] /me/{mode?}
-- [ ] /users/{user}/kudosu
+- [x] /users/{user}/kudosu
 - [x] /users/{user}/scores/{type}
-- [ ] /users/{user}/beatmapsets/{type}
+- [x] /users/{user}/beatmapsets/{type}
 - [x] /users/{user}/recent_activity
 - [x] /users/{user}/{mode?}
-- [ ] /users
-- [ ] /wiki/{locale}/{path}
+- [x] /users
+- [x] /wiki/{locale}/{path}
 
 <br> below are undocumented 
 
@@ -119,5 +119,5 @@ couldn't think of a better name than TypeScript osu! Api (wrapper)
 - [ ] POST /friends
 - [ ] DELETE /friends/{friend}
 - [ ] /me/download-quota-check
-- [ ] /users/lookup
+- [x] /users/lookup
 - [ ] /tags

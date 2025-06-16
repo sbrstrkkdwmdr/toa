@@ -9,30 +9,6 @@ type scoreListParams = {
     offset?: number;
 };
 
-async function all(i: {
-    user_id: number,
-    mode?: apitypes.GameMode;
-    type: 'recent' | 'firsts' | 'best' | 'pinned',
-    limit?: number,
-    include_fails?: boolean,
-    offset?: number;
-}) {
-    if (!i.user_id) throw new Error('Missing user ID');
-    if (!i.type) throw new Error('Missing scores type');
-    let params: Dict = {
-        limit: 100,
-    };
-    if (i.mode) params['mode'] = i.mode;
-    if (i.limit) params['limit'] = i.limit;
-    if (i.include_fails) params['include_fails'] = +i.include_fails;
-    if (i.offset) params['offset'] = i.offset;
-
-    const url = helper.baseUrl.v2 + `/users/${i.user_id}/scores/${i.type}`;
-    return await helper.get(
-        url, params
-    ) as Promise<apitypes.Score[]>;
-}
-
 /**
  * mode is needed for old score links
  */
@@ -57,19 +33,43 @@ export async function scores(i: {
 }) {
     let url = helper.baseUrl.v2 + `/scores`;
     let params: Dict = {};
-    if (i.ruleset) params['ruleset'] = i.ruleset;
-    if (i.cursor_string) params['cursor_string'] = i.cursor_string;
+    if (i.ruleset) params.ruleset = i.ruleset;
+    if (i.cursor_string) params.cursor_string = i.cursor_string;
     return await helper.get(
         url,
         params
     ) as Promise<apitypes.Score>;
 };
 
+export async function list(i: {
+    user_id: number,
+    mode?: apitypes.GameMode;
+    type: 'recent' | 'firsts' | 'best' | 'pinned',
+    limit?: number,
+    include_fails?: boolean,
+    offset?: number;
+}) {
+    if (!i.user_id) throw new Error('Missing user ID');
+    if (!i.type) throw new Error('Missing scores type');
+    let params: Dict = {
+        limit: 100,
+    };
+    if (i.mode) params.mode = i.mode;
+    if (i.limit) params.limit = i.limit;
+    if (i.include_fails) params.include_fails = +i.include_fails;
+    if (i.offset) params.offset = i.offset;
+
+    const url = helper.baseUrl.v2 + `/users/${i.user_id}/scores/${i.type}`;
+    return await helper.get(
+        url, params
+    ) as Promise<apitypes.Score[]>;
+}
+
 /**
  * past 24h
  */
 export async function recent(i: scoreListParams & { include_fails: boolean; }) {
-    return await all({
+    return await list({
         user_id: i.user_id,
         mode: i.mode,
         limit: i.limit,
@@ -83,7 +83,7 @@ export async function recent(i: scoreListParams & { include_fails: boolean; }) {
  * top ranks
  */
 export async function best(i: scoreListParams) {
-    return await all({
+    return await list({
         user_id: i.user_id,
         mode: i.mode,
         limit: i.limit,
@@ -97,7 +97,7 @@ export async function best(i: scoreListParams) {
  * #1 scores
  */
 export async function first(i: scoreListParams) {
-    return await all({
+    return await list({
         user_id: i.user_id,
         mode: i.mode,
         limit: i.limit,
@@ -108,7 +108,7 @@ export async function first(i: scoreListParams) {
 }
 
 export async function pinned(i: scoreListParams) {
-    return await all({
+    return await list({
         user_id: i.user_id,
         mode: i.mode,
         limit: i.limit,

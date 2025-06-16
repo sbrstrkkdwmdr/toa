@@ -15,10 +15,10 @@ export async function scores(i: {
     const url = helper.baseUrl.v2 + `/beatmaps/${i.id}/scores`;
     let params: Dict = {
     };
-    if (i.legacy_only) params['legacy_only'] = +i.legacy_only;
-    if (i.mods) params['mods'] = i.mods;
-    if (i.limit) params['limit'] = i.limit;
-    if (i.type) params['type'] = i.type;
+    if (i.legacy_only) params.legacy_only = +i.legacy_only;
+    if (i.mods) params.mods = i.mods;
+    if (i.limit) params.limit = i.limit;
+    if (i.type) params.type = i.type;
     return await helper.get(
         url,
         {
@@ -39,9 +39,9 @@ export async function userScore(i: {
     const url = helper.baseUrl.v2 + `/beatmaps/${i.map_id}/scores/users/${i.user_id}`;
     let params: Dict = {
     };
-    if (i.legacy_only) params['legacy_only'] = +i.legacy_only;
-    if (i.mods) params['mods'] = i.mods;
-    if (i.ruleset) params['ruleset'] = i.ruleset;
+    if (i.legacy_only) params.legacy_only = +i.legacy_only;
+    if (i.mods) params.mods = i.mods;
+    if (i.ruleset) params.ruleset = i.ruleset;
     return await helper.get(url, params) as Promise<apitypes.BeatmapUserScore>;
 }
 
@@ -55,9 +55,9 @@ export async function userScores(i: {
     const url = helper.baseUrl.v2 + `/beatmaps/${i.map_id}/scores/users/${i.user_id}/all`;
     let params: Dict = {
     };
-    if (i.legacy_only) params['legacy_only'] = +i.legacy_only;
-    if (i.mods) params['mods'] = i.mods;
-    if (i.ruleset) params['ruleset'] = i.ruleset;
+    if (i.legacy_only) params.legacy_only = +i.legacy_only;
+    if (i.mods) params.mods = i.mods;
+    if (i.ruleset) params.ruleset = i.ruleset;
     return await helper.get(
         url, params
     ) as Promise<{ scores: apitypes.Score[]; }>;
@@ -98,11 +98,11 @@ export async function mapLookup(i: {
     let params: Dict = {
     };
     if (i.filename)
-        params['filename'] = i.filename;
+        params.filename = i.filename;
     if (i.checksum)
-        params['checksum'] = i.checksum;
+        params.checksum = i.checksum;
     if (i.id)
-        params['id'] = i.id;
+        params.id = i.id;
     return await helper.get(
         url, params
     ) as Promise<apitypes.BeatmapExtended>;
@@ -122,11 +122,11 @@ export async function attributes(i: {
 
     };
     if (i.mods)
-        body['mods'] = i.mods;
+        body.mods = i.mods;
     if (i.ruleset)
-        body['ruleset'] = i.ruleset;
+        body.ruleset = i.ruleset;
     if (i.ruleset_id)
-        body['ruleset_id'] = i.ruleset_id;
+        body.ruleset_id = i.ruleset_id;
 
     return await helper.post(
         url, params, body
@@ -146,7 +146,7 @@ export async function mapset(i: {
 }
 
 /**
- * WIP
+ * params assumed based on beatmap lookup
  */
 export async function mapsetLookup(i: {
     filename?: string,
@@ -158,11 +158,11 @@ export async function mapsetLookup(i: {
     let params: Dict = {
     };
     if (i.filename)
-        params['filename'] = i.filename;
+        params.filename = i.filename;
     if (i.checksum)
-        params['checksum'] = i.checksum;
+        params.checksum = i.checksum;
     if (i.id)
-        params['id'] = i.id;
+        params.id = i.id;
     return await helper.get(
         url, params
     ) as Promise<apitypes.BeatmapsetExtended>;
@@ -188,9 +188,9 @@ export async function packs(i: {
     let params: Dict = {
     };
     if (i.type)
-        params['type'] = i.type;
+        params.type = i.type;
     if (i.cursor_string)
-        params['cursor_string'] = i.cursor_string;
+        params.cursor_string = i.cursor_string;
     return await helper.get(
         url, params
     ) as Promise<apitypes.BeatmapPack[]>;
@@ -204,7 +204,7 @@ export async function pack(i: {
     let params: Dict = {
     };
     if (i.legacy_only)
-        params['legacy_only'] = +i.legacy_only;
+        params.legacy_only = +i.legacy_only;
     return await helper.get(
         url, params
     ) as Promise<apitypes.BeatmapPack>;
