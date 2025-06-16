@@ -13,22 +13,22 @@ couldn't think of a better name than TypeScript osu! Api (wrapper)
 
 - [x] POST /oauth/token
 - [ ] DELETE /oauth/tokens/current
-- [ ] /beatmaps/packs
-- [ ] /beatmaps/packs/{pack}
-- [ ] /beatmaps/lookup
+- [x] /beatmaps/packs
+- [x] /beatmaps/packs/{pack}
+- [x] /beatmaps/lookup
 - [x] /beatmaps/{beatmap}/scores/users/{user}
 - [x] /beatmaps/{beatmap}/scores/users/{user}/all
 - [x] /beatmaps/{beatmap}/scores
 - [ ] DEP /beatmaps/{beatmap}/solo-score
-- [ ] /beatmaps
-- [ ] /beatmaps/{beatmap}
-- [ ] POST /beatmaps/{beatmap}/attributes
+- [x] /beatmaps
+- [x] /beatmaps/{beatmap}
+- [x] POST /beatmaps/{beatmap}/attributes
 - [ ] LIKELY TO CHANGE SOON 2025-06-16 /beatmapsets/discussions/posts 
 - [ ] LIKELY TO CHANGE SOON 2025-06-16 /beatmapsets/discussions/votes
 - [ ] LIKELY TO CHANGE SOON 2025-06-16 /beatmapsets/discussions
-- [ ] /beatmapsets/search
-- [ ] /beatmapsets/lookup
-- [ ] /beatmapsets/{beatmapset}
+- [x] /beatmapsets/search
+- [x] /beatmapsets/lookup
+- [x] /beatmapsets/{beatmapset}
 - [ ] DNI /beatmapsets/{beatmapset}/download
 - [ ] /changelog/{stream}/{build}
 - [ ] /changelog

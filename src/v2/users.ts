@@ -15,7 +15,7 @@ export async function profile(i: {
     return await helper.get(
         url,
         {}
-    ) as Promise<apitypes.User>;
+    ) as Promise<apitypes.UserExtended>;
 }
 
 export async function recentActivity(i: {

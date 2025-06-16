@@ -1,6 +1,6 @@
-export type BeatmapCompact = {
+export type Beatmap = {
     beatmapset_id: number,
-    beatmapset?: BeatmapsetCompact,
+    beatmapset?: Beatmapset,
     checksum?: string | null,
     difficulty_rating: number,
     failtimes: Failtimes;
@@ -10,18 +10,15 @@ export type BeatmapCompact = {
     status: string,
     total_length: number,
     user_id: number,
-    owners: {
-        id: number,
-        username: string,
-    }[],
+    owners: BeatmapOwner[],
     version: string,
 } & Error;
 
-export type Beatmap = BeatmapCompact & {
+export type BeatmapExtended = Beatmap & {
     accuracy: number,
     ar: number,
     beatmapset_id: number,
-    beatmapset?: Beatmapset,
+    beatmapset?: BeatmapsetExtended,
     bpm?: number | null,
     convert: boolean,
     count_circles: number,
@@ -39,6 +36,28 @@ export type Beatmap = BeatmapCompact & {
     ranked: number,
     url: string,
 } & Error;
+
+export type BeatmapOwner = {
+    id: number,
+    username: string,
+};
+
+export type BeatmapPack = {
+    author: string,
+    date: Timestamp,
+    name: string,
+    no_diff_reduction: boolean,
+    ruleset_id: number,
+    tag: string,
+    url: string,
+    beatmapsets?: Beatmapset[],
+    user_completion_data: {
+        beatmapset_ids: number[],
+        completed: boolean,
+    };
+};
+
+
 
 //==============================================================================================================================================================================================
 
@@ -76,14 +95,14 @@ export type BeatmapDifficultyAttributes = {
 
 export type BeatmapPlaycount = {
     beatmap_id: number,
-    beatmap: BeatmapCompact | null,
-    beatmapset: BeatmapsetCompact | null,
+    beatmap: Beatmap | null,
+    beatmapset: Beatmapset | null,
     count: number,
 } & Error;
 
 //==============================================================================================================================================================================================
 
-export type BeatmapsetCompact = {
+export type Beatmapset = {
     artist: string,
     artist_unicode: string,
     beatmaps?: Beatmap[],
@@ -115,29 +134,29 @@ export type BeatmapsetCompact = {
     play_count: number,
     preview_url: string,
     ratings?: number[],
-    recent_favourites?: UserCompact[],
-    related_users?: UserCompact[] | UserCompact,
+    recent_favourites?: User[],
+    related_users?: User[] | User,
     source: string,
     status: string,
     title: string,
     title_unicode: string,
     track_id: number,
-    user: UserCompact,
+    user: User,
     user_id: number,
     video: boolean,
 } & Error;
 
 //==============================================================================================================================================================================================
 
-export type Beatmapset = BeatmapsetCompact & {
+export type BeatmapsetExtended = Beatmapset & {
     availability: {
         download_disabled: boolean,
         more_information?: string | null,
     };
-    beatmaps?: Beatmap[],
+    beatmaps?: BeatmapExtended[],
     bpm: number,
     can_be_hyped: boolean,
-    converts?: Beatmap[],
+    converts?: BeatmapExtended[],
     creator: string,
     description?: {
         description: string,
@@ -181,9 +200,9 @@ export type BeatmapsetSearch = {
 //==============================================================================================================================================================================================
 
 export type BeatmapsetDiscussion = {
-    beatmap?: BeatmapCompact | null,
+    beatmap?: Beatmap | null,
     beatmap_id?: number | null,
-    beatmapset?: BeatmapsetCompact | null,
+    beatmapset?: Beatmapset | null,
     beatmapset_id: number,
     can_be_resolved: boolean,
     can_grant_kudosu: boolean,
@@ -300,7 +319,7 @@ export type ChatMessage = {
     timestamp: Timestamp,
     content: string,
     is_action: boolean,
-    sender: UserCompact;
+    sender: User;
 } & Error;
 
 //==============================================================================================================================================================================================
@@ -337,7 +356,7 @@ export type CommentBundle = {
     total?: number | null,
     user_follow: boolean;
     user_votes: number[],
-    users: UserCompact[],
+    users: User[],
 } & Error;
 
 export type CommentSort = 'new' | 'old' | 'top'; //& Error
@@ -552,7 +571,7 @@ export type ScoreLegacy = {
     current_user_attributes?: {
         pin: boolean,
     };
-    user?: UserCompact,
+    user?: User,
     weight?: {
         percentage: number,
         pp: number,
@@ -597,7 +616,7 @@ export type Score = {
     total_score: number;
     type: string,
     user_id: number,
-    user?: UserCompact,
+    user?: User,
     weight?: {
         percentage: number,
         pp: number,
@@ -639,7 +658,7 @@ export type UpdateStream = {
 
 //==============================================================================================================================================================================================
 
-export type UserCompact = {
+export type User = {
     avatar_url: string,
     country_code: string,
     default_group: string,
@@ -698,7 +717,7 @@ export type UserCompact = {
 
 //==============================================================================================================================================================================================
 
-export type User = UserCompact & {
+export type UserExtended = User & {
     cover_url: string,
     discord?: string | null,
     has_supported: boolean,
@@ -775,7 +794,7 @@ export type UserStatistics = {
     replays_watched_by_others: number,
     total_hits: number,
     total_score: number,
-    user?: UserCompact,
+    user?: User,
 } & Error;
 
 export type WikiPage = {
@@ -1142,6 +1161,6 @@ type CountryName = string;
 
 type ProfilePage = 'me' | 'recent_activity' | 'beatmaps' | 'historical' | 'kudosu' | 'top_ranks' | 'medals';
 
-export type ModAcronym = 
-'EZ' | 'HD' | 'FI' | 'HT' | 'DT' | 'NC' | 'HR' | 'FL' | 'SD' | 'PF' | 'NF' | 'AT' | 'CM' | 'RL' | 'AP' | 'TP' | 'SO' | 'TD' | '1K' | '2K' | '3K' | '4K' | '5K' | '6K' | '7K' | '8K' | '9K' | 'CP' | 'RD' | 'MR' | 'V2'
-| 'DC' | 'BL' | 'ST' | 'DA' | 'CL' | 'AL' | 'ST' | 'TR' | 'WI' | 'SI' | 'GR' | 'DF' | 'WU' | 'WD' | 'TR' | 'BR' | 'AD' | 'MU' | 'NS' | 'MG' | 'RP' | 'AS' | 'FF';
+export type ModAcronym =
+    'EZ' | 'HD' | 'FI' | 'HT' | 'DT' | 'NC' | 'HR' | 'FL' | 'SD' | 'PF' | 'NF' | 'AT' | 'CM' | 'RL' | 'AP' | 'TP' | 'SO' | 'TD' | '1K' | '2K' | '3K' | '4K' | '5K' | '6K' | '7K' | '8K' | '9K' | 'CP' | 'RD' | 'MR' | 'V2'
+    | 'DC' | 'BL' | 'ST' | 'DA' | 'CL' | 'AL' | 'ST' | 'TR' | 'WI' | 'SI' | 'GR' | 'DF' | 'WU' | 'WD' | 'TR' | 'BR' | 'AD' | 'MU' | 'NS' | 'MG' | 'RP' | 'AS' | 'FF';
