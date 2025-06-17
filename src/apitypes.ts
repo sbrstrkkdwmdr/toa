@@ -1,4 +1,6 @@
-export type Beatmap = {
+import { Dict } from "./types";
+
+export interface Beatmap {
     beatmapset_id: number,
     beatmapset?: Beatmapset,
     checksum?: string | null,
@@ -12,9 +14,9 @@ export type Beatmap = {
     user_id: number,
     owners: BeatmapOwner[],
     version: string,
-} & Error;
+}
 
-export type BeatmapExtended = Beatmap & {
+export interface BeatmapExtended extends Beatmap {
     accuracy: number,
     ar: number,
     beatmapset_id: number,
@@ -35,14 +37,14 @@ export type BeatmapExtended = Beatmap & {
     playcount: number,
     ranked: number,
     url: string,
-} & Error;
+}
 
-export type BeatmapOwner = {
+export interface BeatmapOwner {
     id: number,
     username: string,
 };
 
-export type BeatmapPack = {
+export interface BeatmapPack {
     author: string,
     date: Timestamp,
     name: string,
@@ -61,7 +63,7 @@ export type BeatmapPack = {
 
 //==============================================================================================================================================================================================
 
-export type BeatmapDifficultyAttributes = {
+export interface BeatmapDifficultyAttributes {
     attributes: {
         aim_difficulty: number,
         approach_rate: number,
@@ -89,20 +91,20 @@ export type BeatmapDifficultyAttributes = {
         great_hit_window: number,
         score_multiplier: number,
     };
-} & Error;
+}
 
 //==============================================================================================================================================================================================
 
-export type BeatmapPlaycount = {
+export interface BeatmapPlaycount {
     beatmap_id: number,
     beatmap: Beatmap | null,
     beatmapset: Beatmapset | null,
     count: number,
-} & Error;
+}
 
 //==============================================================================================================================================================================================
 
-export type Beatmapset = {
+export interface Beatmapset {
     artist: string,
     artist_unicode: string,
     beatmaps?: Beatmap[],
@@ -144,11 +146,11 @@ export type Beatmapset = {
     user: User,
     user_id: number,
     video: boolean,
-} & Error;
+}
 
 //==============================================================================================================================================================================================
 
-export type BeatmapsetExtended = Beatmapset & {
+export interface BeatmapsetExtended extends Beatmapset {
     availability: {
         download_disabled: boolean,
         more_information?: string | null,
@@ -185,9 +187,9 @@ export type BeatmapsetExtended = Beatmapset & {
     storyboard: boolean,
     submitted_date?: Timestamp | null,
     tags: string,
-} & Error;
+}
 
-export type BeatmapsetSearch = {
+export interface BeatmapsetSearch {
     beatmapsets?: Beatmapset[],
     cursor: Cursor,
     cursor_string: CursorString,
@@ -195,11 +197,11 @@ export type BeatmapsetSearch = {
     error: any,
     search: any,
     recommended_difficulty: any,
-} & Error;
+}
 
 //==============================================================================================================================================================================================
 
-export type BeatmapsetDiscussion = {
+export interface BeatmapsetDiscussion {
     beatmap?: Beatmap | null,
     beatmap_id?: number | null,
     beatmapset?: Beatmapset | null,
@@ -221,9 +223,9 @@ export type BeatmapsetDiscussion = {
     timestamp?: number | null,
     updated_at: Timestamp,
     user_id: number,
-} & Error;
+}
 
-export type BeatmapsetDiscussionPost = {
+export interface BeatmapsetDiscussionPost {
     beatmapset_discussion_id: number,
     created_at: Timestamp,
     deleted_at?: Timestamp | null,
@@ -234,38 +236,37 @@ export type BeatmapsetDiscussionPost = {
     system: boolean,
     updated_at: Timestamp,
     user_id: number,
-} & Error;
+}
 
-export type BeatmapsetDiscussionVote = {
+export interface BeatmapsetDiscussionVote {
     beatmapset_discussion_id: number,
     created_at: Timestamp,
     id: number,
     score: number,
     updated_at: Timestamp,
     user_id: number,
-} & Error;
+}
 
 //==============================================================================================================================================================================================
 
 /**
  * T is either Score or LegacyScore
  */
-export type BeatmapScores<T> = {
+export interface BeatmapScores<T> {
     scores: T[],
     userScore: T | null,
-} & Error;
+}
 
 //==============================================================================================================================================================================================
 
-export type BeatmapUserScore = {
+export interface BeatmapUserScore {
     position: number,
     score: Score,
-} | any
-    & Error;
+}
 
 //==============================================================================================================================================================================================
 
-export type Build = {
+export interface Build {
     created_at: Timestamp,
     display_version: string,
     id: number,
@@ -274,11 +275,11 @@ export type Build = {
     version?: string | null,
     changelog_entries?: ChangelogEntry[],
     versions?: Versions;
-} & Error;
+}
 
 //==============================================================================================================================================================================================
 
-export type ChangelogEntry = {
+export interface ChangelogEntry {
     category: string,
     created_at?: Timestamp | null,
     github_pull_request_id?: number | null,
@@ -292,11 +293,11 @@ export type ChangelogEntry = {
     title?: string | null,
     type: string,
     url?: string | null,
-} & Error;
+}
 
 //==============================================================================================================================================================================================
 
-export type ChatChannel = {
+export interface ChatChannel {
     channel_id: number,
     current_user_attributes?: CurrentUserAttributes | null,
     name: string,
@@ -308,11 +309,11 @@ export type ChatChannel = {
     recent_messages?: ChatMessage[] | null,
     moderated: boolean,
     users?: number[] | null,
-} & Error;
+}
 
 //==============================================================================================================================================================================================
 
-export type ChatMessage = {
+export interface ChatMessage {
     message_id: number,
     sender_id: number,
     channel_id: number,
@@ -320,11 +321,11 @@ export type ChatMessage = {
     content: string,
     is_action: boolean,
     sender: User;
-} & Error;
+}
 
 //==============================================================================================================================================================================================
 
-export type Comment = {
+export interface Comment {
     commentable_id: number,
     commentable_type: string,
     created_at: Timestamp,
@@ -341,9 +342,9 @@ export type Comment = {
     updated_at: Timestamp,
     user_id: number,
     votes_count: number,
-} & Error;
+}
 
-export type CommentBundle = {
+export interface CommentBundle {
     commentable_meta: CommentableMeta,
     comments: Comment[],
     cursor: Cursor,
@@ -357,18 +358,18 @@ export type CommentBundle = {
     user_follow: boolean;
     user_votes: number[],
     users: User[],
-} & Error;
+}
 
-export type CommentSort = 'new' | 'old' | 'top'; //& Error
+export type CommentSort = 'new' | 'old' | 'top';
 
-export type CommentableMeta = {
+export interface CommentableMeta {
     id: number,
     title: string,
     type: string,
     url: string,
-} & Error;
+}
 
-export type CurrentUserAttributes =
+export interface CurrentUserAttributes { }
 /* {
     BeatmapsetDiscusionPermissions: {
         can_destroy: boolean,
@@ -382,19 +383,19 @@ export type CurrentUserAttributes =
         can_message_error?: string,
         last_read_id: number,
     }
-} */ any; //& Error
+} */ //& Error
 
 export type Cursor = CursorString; //& Error
 
-export type CursorString = any & Error;//{}
+export type CursorString = Dict; //{}
 
-export type Event = {
+export interface Event {
     created_at: Timestamp,
     id: number,
     type: EventTypes,
-} & Error;
+}
 
-export type ForumPost = {
+export interface ForumPost {
     created_at: Timestamp,
     deleted_at?: Timestamp | null,
     edited_at?: Timestamp | null,
@@ -403,9 +404,9 @@ export type ForumPost = {
     id: number,
     topic_id: number,
     user_id: number,
-} & Error;
+}
 
-export type ForumTopic = {
+export interface ForumTopic {
     created_at: Timestamp,
     deleted_at?: Timestamp | null,
     first_post_id: number,
@@ -419,7 +420,7 @@ export type ForumTopic = {
     type: 'normal' | 'sticky' | 'announcement',
     updated_at: Timestamp,
     user_id: number,
-} & Error;
+}
 
 export type GameMode = ('osu' | 'taiko' | 'fruits' | 'mania');
 
@@ -432,16 +433,16 @@ export enum RulesetEnum {
     mania = 3
 }
 
-export type GithubUser = {
+export interface GithubUser {
     display_name: string,
     github_url?: string | null,
     id?: number | null,
     osu_username?: string | null,
     user_id?: number | null,
     user_url?: string | null,
-} & Error;
+}
 
-export type Group = {
+export interface Group {
     colour?: string | null,
     description?: Description;
     has_listing: boolean,
@@ -451,9 +452,9 @@ export type Group = {
     is_probationary: boolean,
     name: string,
     short_name: string;
-} & Error;
+}
 
-export type KudosuHistory = {
+export interface KudosuHistory {
     id: number,
     action: string,
     amount: number,
@@ -461,9 +462,9 @@ export type KudosuHistory = {
     created_at: Timestamp,
     giver?: Giver | null,
     post: Post,
-} & Error;
+}
 
-export type MultiplayerScore = {
+export interface MultiplayerScore {
     id: number,
     user_id: number,
     room_id: number,
@@ -479,31 +480,31 @@ export type MultiplayerScore = {
     position?: number | null,
     scores_around?: MultiplayerScoresAround | null,
     user: User,
-} & Error;
+}
 
-export type MultiplayerScores = {
+export interface MultiplayerScores {
     cursor: MultiplayerScoresCursor,
     params: object, //read https://osu.ppy.sh/docs/index.html?javascript#multiplayerscores for more info
     scores: MultiplayerScore[],
     total?: number | null,
     user_score?: MultiplayerScore,
-} & Error;
+}
 //params:
 //sort, limit, cursor[score_id],cursor[total_score]
 
-export type MultiplayerScoresAround = {
+export interface MultiplayerScoresAround {
     higher: MultiplayerScores,
     lower: MultiplayerScores,
-} & Error;
+}
 
-export type MultiplayerScoresCursor = {
+export interface MultiplayerScoresCursor {
     score_id: number,
     total_score: number,
-} & Error;
+}
 
-export type MultiplayerScoresSort = ('score_asc' | 'score_desc') & Error;
+export type MultiplayerScoresSort = ('score_asc' | 'score_desc');
 
-export type NewsPost = {
+export interface NewsPost {
     author: string,
     edit_url: string,
     first_image?: string | null,
@@ -515,9 +516,9 @@ export type NewsPost = {
     content?: string,
     navigation?: Navigation,
     preview?: string,
-} & Error;
+}
 
-export type Notification = {
+export interface Notification {
     id: number,
     name: string,
     created_at: Timestamp,
@@ -526,21 +527,21 @@ export type Notification = {
     source_user_id?: number | null,
     is_read: boolean,
     details: NotificationEvent | object,
-} & Error;
+}
 
-export type RankingType = ('charts' | 'country' | 'performance' | 'score') & Error;
+export type RankingType = ('charts' | 'country' | 'performance' | 'score');
 
-export type Rankings = {
+export interface Rankings {
     beatmapsets?: Beatmapset[],
     cursor: Cursor,
     ranking: UserStatistics[],
     spotlight?: SpotLight | null,
     total: number,
-} & Error;
+}
 
 //==============================================================================================================================================================================================
 
-export type ScoreLegacy = {
+export interface ScoreLegacy {
     accuracy: number,
     beatmap?: Beatmap,
     beatmapset?: Beatmapset,
@@ -576,9 +577,9 @@ export type ScoreLegacy = {
         percentage: number,
         pp: number,
     },
-} & Error;
+}
 
-export type Score = {
+export interface Score {
     accuracy: number,
     beatmap_id?: number,
     beatmap?: Beatmap,
@@ -625,7 +626,7 @@ export type Score = {
 
 //==============================================================================================================================================================================================
 
-export type SpotLight = {
+export interface SpotLight {
     end_date: Timestamp,
     id: number,
     mode_specific: boolean,
@@ -633,11 +634,11 @@ export type SpotLight = {
     name: string,
     start_date: Timestamp,
     type: string,
-} & Error;
+}
 
-export type SpotLights = {
+export interface SpotLights {
     spotlights: SpotLight[];
-} & Error;
+}
 
 /**
  * iso 8601 date
@@ -647,18 +648,18 @@ export type SpotLights = {
 */
 export type Timestamp = `${number}-${number}-${number}T${number}:${number}:${number}${'+' | '-'}${number}:${number}`; //& Error
 
-export type UpdateStream = {
+export interface UpdateStream {
     display_name?: string | null,
     id: number,
     is_featured: boolean,
     name: string,
     latest_build?: Build | null,
     user_count?: number,
-} & Error;
+}
 
 //==============================================================================================================================================================================================
 
-export type User = {
+export interface User {
     avatar_url: string,
     country_code: string,
     default_group: string,
@@ -681,6 +682,10 @@ export type User = {
         custom_url: string,
         url: string,
         id: number,
+    },
+    kudosu?: {
+        available: number,
+        total: number,
     },
     favourite_beatmapset_count?: number,
     follower_count?: number,
@@ -713,20 +718,16 @@ export type User = {
         achievement_id: number;
     }[],
     user_preferences?: any,
-} & Error;
+}
 
 //==============================================================================================================================================================================================
 
-export type UserExtended = User & {
+export interface UserExtended extends User {
     cover_url: string,
     discord?: string | null,
     has_supported: boolean,
     interests?: string | null,
     join_date: Timestamp,
-    kudosu: {
-        available: number,
-        total: number,
-    },
     location?: string | null,
     max_blocks: number,
     max_friends: number,
@@ -739,32 +740,32 @@ export type UserExtended = User & {
     title_url?: string | null,
     twitter?: string | null,
     website?: string | null,
-} & Error;
+};
 
-export type ScoreArrALegacy = {
+export interface ScoreArrALegacy {
     scores: ScoreLegacy[];
-} & Error;
+}
 
-export type ScoreArrA = {
+export interface ScoreArrA {
     scores: Score[];
-} & Error;
+}
 
 
-export type BeatmapPlayCountArr = BeatmapPlaycount[] & Error;
+export type BeatmapPlayCountArr = BeatmapPlaycount[];
 
 
 //==============================================================================================================================================================================================
 
-export type UserGroup = {
+export interface UserGroup {
     playmodes: string[] | null,
-} & Error;
+}
 
-export type UserSilence = {
+export interface UserSilence {
     id: number,
     user_id: number,
-} & Error;
+}
 
-export type UserStatistics = {
+export interface UserStatistics {
     grade_counts: {
         a: number,
         s: number,
@@ -795,9 +796,9 @@ export type UserStatistics = {
     total_hits: number,
     total_score: number,
     user?: User,
-} & Error;
+}
 
-export type WikiPage = {
+export interface WikiPage {
     available_locales: string[],
     layout: string,
     locale: string,
@@ -806,29 +807,29 @@ export type WikiPage = {
     subtitle: string | null,
     tags: string,
     title: string,
-} & Error;
+}
 
 //api shit
 
-export type Error = {
+export interface Error {
     error?: string,
     authentication?: string,
 };
 
-export type OAuth = {
+export interface OAuth {
     access_token: string,
     expires_in: number,
     token_type: string,
-} & Error;
+}
 
 //mini-types ???
 
 //beatmap
-type Failtimes = {
+interface Failtimes {
     exit: number[] | null,
     fail: number[] | null,
 };
-type Covers = {
+interface Covers {
     cover: string,
     'cover@2x': string,
     card: string,
@@ -845,14 +846,14 @@ type RankStatus = -2 | -1 | 0 | 1 | 2 | 3 | 4;
 type MessageType = 'hype' | 'mapper_note' | 'praise' | 'problem' | 'review' | 'suggestion';
 
 //Build
-type Versions = {
+interface Versions {
     next?: Build,
     previous?: Build;
 };
 
 //Event
 
-export type Achievement = {
+export interface Achievement {
     icon_url?: string,
     id: number,
     name?: string,
@@ -877,65 +878,65 @@ export type EventTypes =
     'userSupportAgain' | 'userSupportFirst' | 'userSupportGift' |
     'usernameChange';
 
-export type EventBeatmap = {
+export interface EventBeatmap extends Event {
     title: string,
     url: string;
-} & Event;
-export type EventUser = {
+}
+export interface EventUser extends Event {
     username: string,
     url: string;
     previousUsername?: string | null,
-} & Event;
+}
 
-export type EventAchievement = {
+export interface EventAchievement extends Event {
     achievement: Achievement,
     user: EventUser;
-} & Event;
-export type EventBeatmapPlaycount = {
+}
+export interface EventBeatmapPlaycount extends Event {
     beatmap: EventBeatmap,
     count: number,
-} & Event;
-export type EventBeatmapsetApprove = {
+}
+export interface EventBeatmapsetApprove extends Event {
     approval: string,
     beatmapset: EventBeatmap,
     user: EventUser;
-} & Event;
-export type EventBeatmapsetDelete = {
+}
+export interface EventBeatmapsetDelete extends Event {
     beatmapset: EventBeatmap,
-} & Event;
-export type EventBeatmapsetRevive = {
+}
+export interface EventBeatmapsetRevive extends Event {
     beatmapset: EventBeatmap,
     user: EventUser;
-} & Event;
-export type EventBeatmapsetUpdate = EventBeatmapsetRevive;
-export type EventBeatmapsetUpload = EventBeatmapsetRevive;
-export type EventRank = {
+}
+export interface EventBeatmapsetUpdate extends EventBeatmapsetRevive { }
+export interface EventBeatmapsetUpload extends EventBeatmapsetRevive { }
+export interface EventRank extends Event {
     scoreRank: string,
     rank: number,
     mode: GameMode,
     beatmap: EventBeatmap,
     user: EventUser;
-} & Event;
-export type EventRankLost = {
+}
+export interface EventRankLost extends Event {
     mode: GameMode,
     beatmap: EventBeatmap,
     user: EventUser;
-} & Event;
-export type EventUserSupportAgain = {
+}
+export interface EventUserSupportAgain extends Event {
     user: EventUser,
-} & Event;
-export type EventUserSupportFirst = {
+}
+export interface EventUserSupportFirst extends Event {
     user: EventUser,
-} & Event;
-export type EventUserSupportGift = {
+}
+export interface EventUserSupportGift extends Event {
     user: EventUser,
-} & Event;
-export type EventUsernameChange = {
+}
+export interface EventUsernameChange extends Event {
     user: EventUser,
-} & Event;
+}
 
 //forum-topic
-type Poll = {
+interface Poll {
     allow_vote_change: boolean,
     ended_at?: Timestamp | null,
     hide_incomplete_results: boolean,
@@ -948,7 +949,7 @@ type Poll = {
     },
     total_votes_count: number,
 };
-type PollOption = {
+interface PollOption {
     id: number,
     text: {
         bbcode: string,
@@ -957,25 +958,24 @@ type PollOption = {
     vote_count?: number | null,
 };
 //Group
-type Description = {
+interface Description {
     html: string,
     markdown: string,
 };
 
-
 //Kudosu History
-type Giver = {
+interface Giver {
     url: string,
     username: string,
 };
-type Post = {
+interface Post {
     url?: string | null,
     title: string,
 };
 
 //scores
 // https://github.com/ppy/osu-web/blob/master/database/mods.json
-export type Mod = {
+export interface Mod {
     name?: string,
     acronym: string;
     settings?: {
@@ -1027,7 +1027,7 @@ export type Mod = {
 
 export type Rank = 'XH' | 'X' | 'SH' | 'S' | 'A' | 'B' | 'C' | 'D' | 'E' | 'F';
 
-export type Statistics = { //legacy score statistics
+export interface Statistics { //legacy score statistics
     count_100: number,
     count_300: number,
     count_50: number,
@@ -1036,7 +1036,7 @@ export type Statistics = { //legacy score statistics
     count_miss: number;
 };
 
-export type ScoreStatistics = {
+export interface ScoreStatistics {
     perfect?: number, // geki/300+
     great: number, // 300
     good?: number, // katu/200
@@ -1049,7 +1049,7 @@ export type ScoreStatistics = {
 };
 
 //newspost
-type Navigation = {
+interface Navigation {
     newer?: NewsPost,
     older?: NewsPost,
 };
@@ -1060,12 +1060,12 @@ type NotificationEvent =
     | Notification_reset_nominations
     | Notification_channel_message | Notification_forum_topic_reply;
 
-type Notification_beatmapset_discussion_lock = {
+interface Notification_beatmapset_discussion_lock {
     cover_url: string,
     title: string,
     username: string,
 };
-type Notification_beatmapset_discussion_post_new = {
+interface Notification_beatmapset_discussion_post_new {
     title: string,
     cover_url: string,
     discussion_id: number,
@@ -1073,47 +1073,47 @@ type Notification_beatmapset_discussion_post_new = {
     beatmap_id?: number | null,
     username: string,
 };
-type Notification_beatmapset_discussion_unlock = {
+interface Notification_beatmapset_discussion_unlock {
     cover_url: string,
     title: string,
     username: string,
 };
-type Notification_beatmapset_disqualify = {
+interface Notification_beatmapset_disqualify {
     cover_url: string,
     title: string,
     username: string,
 };
-type Notification_beatmapset_love = {
+interface Notification_beatmapset_love {
     cover_url: string,
     title: string,
     username: string,
 };
-type Notification_beatmapset_nominate = {
+interface Notification_beatmapset_nominate {
     cover_url: string,
     title: string,
     username: string,
 };
-type Notification_beatmapset_qualify = {
+interface Notification_beatmapset_qualify {
     cover_url: string,
     title: string,
     username: string,
 };
-type Notification_beatmapset_remove_from_loved = {
+interface Notification_beatmapset_remove_from_loved {
     cover_url: string,
     title: string,
     username: string,
 };
-type Notification_reset_nominations = {
+interface Notification_reset_nominations {
     cover_url: string,
     title: string,
     username: string,
 };
-type Notification_channel_message = {
+interface Notification_channel_message {
     cover_url: string,
     title: string,
     username: string,
 };
-type Notification_forum_topic_reply = {
+interface Notification_forum_topic_reply {
     cover_url: string,
     title: string,
     username?: string | null,
@@ -1122,7 +1122,7 @@ type Notification_forum_topic_reply = {
 
 
 //user
-type UserAccountHistory = {
+interface UserAccountHistory {
     description: string | null,
     id: number,
     length: number,
@@ -1131,20 +1131,20 @@ type UserAccountHistory = {
     type: 'note' | 'restriction' | 'silence',
 };
 
-type ProfileBanner = {
+interface ProfileBanner {
     id: number,
     tournament_id: number,
     image: string;
 };
 
-type UserBadge = {
+interface UserBadge {
     awarded_at: Timestamp,
     description: string,
     image_url: string,
     url: string,
 };
 
-type UserMonthlyPlaycount = {
+interface UserMonthlyPlaycount {
     start_date: Timestamp,
     count: number,
 }; //undocumented so this is all based off debug stuff
@@ -1153,7 +1153,7 @@ type UserStatisticsRulesets = any;/* {
 
 } */
 
-type Country = { code: CountryCode, name: CountryName; };
+interface Country { code: CountryCode, name: CountryName; };
 
 type CountryCode = string;
 
