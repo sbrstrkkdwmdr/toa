@@ -20,6 +20,17 @@ export enum Ruleset {
     mania = 3
 }
 
+let headerVersion = '20220705';
+
+/**
+ * YYYYMMDD
+ * 
+ * note that when using an api version below 20220705, Score is of type LegacyScore
+ */
+export function setVersion(version:string){
+    headerVersion = version;
+}
+
 export function oAuth(): apitypes.OAuth {
     const str = fs.readFileSync(`./config/osuauth.json`, 'utf-8');
     credentials.auth = JSON.parse(str) as apitypes.OAuth;
@@ -85,7 +96,7 @@ export async function get(url: string, params: Dict, tries: number = 0) {
             Authorization: `Bearer ${credentials?.auth?.access_token}`,
             "Content-Type": "application/json",
             Accept: "application/json",
-            "x-api-version": "20220705"
+            "x-api-version": headerVersion
         },
     }).catch(err => {
         if (err?.response?.data?.authentication == 'basic') {

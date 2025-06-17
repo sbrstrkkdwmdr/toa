@@ -5,11 +5,16 @@ couldn't think of a better name than TypeScript osu! Api (wrapper)
 
 ## TO-DO-LIST
 
-### v1
+### basic
+- [x] client oauth functionality (v2 only)
+- [ ] user login functionality
+- [ ] scopes other than public
+
+### v1 routes
 
 - will do once v2 is at least mostly done
 
-### v2
+### v2 routes
 
 - [x] POST /oauth/token
 - [ ] DELETE /oauth/tokens/current
@@ -71,9 +76,9 @@ couldn't think of a better name than TypeScript osu! Api (wrapper)
 - [ ] /news/{news}
 - [ ] /notifications
 - [ ] POST /notifications/mark-read
-- [ ] /rankings/kudosu
-- [ ] /rankings/{mode}/{type}
-- [ ] /spotlights
+- [x] /rankings/kudosu
+- [x] /rankings/{mode}/{type}
+- [x] /spotlights
 - [ ] /scores
 - [ ] POST /score-pins/{score}/reorder
 - [ ] DELETE /score-pins/{score}

@@ -14,7 +14,7 @@ export async function profile(i: {
     mode?: apitypes.GameMode;
     id?: string,
 }) {
-    if (!i.name && !i.id) throw new Error('Missing an ID or username to lookup');
+    if (!i.name && !i.id) throw new Error('Missing an ID or username');
     let url = helper.baseUrl.v2 + `/users/${i.name}`;
     if (i?.mode) {
         url += `/${i.mode}`;
@@ -124,10 +124,7 @@ export async function kudosu(i: {
     ) as Promise<apitypes.KudosuHistory[]>;
 }
 
-/**
- * undocumented
- * params assumed based on beatmap lookup
- */
+
 export async function lookup(i: {
     checksum?: string,
     id?: number,
