@@ -12,7 +12,7 @@ export async function scores(i: {
 }) {
     if (!i.id) throw new Error('Missing beatmap ID');
     if (!i.id) throw new Error('Missing ruleset');
-    const url = helper.baseUrl.v2 + `/beatmaps/${i.id}/scores`;
+    const url = `/beatmaps/${i.id}/scores`;
     let params: Dict = {
     };
     if (i.legacy_only) params.legacy_only = +i.legacy_only;
@@ -36,7 +36,7 @@ export async function userScore(i: {
     mods?: apitypes.ModAcronym[],
     ruleset?: apitypes.GameMode,
 }) {
-    const url = helper.baseUrl.v2 + `/beatmaps/${i.map_id}/scores/users/${i.user_id}`;
+    const url = `/beatmaps/${i.map_id}/scores/users/${i.user_id}`;
     let params: Dict = {
     };
     if (i.legacy_only) params.legacy_only = +i.legacy_only;
@@ -52,7 +52,7 @@ export async function userScores(i: {
     mods?: apitypes.ModAcronym[],
     ruleset?: apitypes.GameMode,
 }) {
-    const url = helper.baseUrl.v2 + `/beatmaps/${i.map_id}/scores/users/${i.user_id}/all`;
+    const url = `/beatmaps/${i.map_id}/scores/users/${i.user_id}/all`;
     let params: Dict = {
     };
     if (i.legacy_only) params.legacy_only = +i.legacy_only;
@@ -67,7 +67,7 @@ export async function map(i: {
     id: number;
 }) {
     if (!i.id) throw new Error('Missing beatmap ID');
-    const url = helper.baseUrl.v2 + `/beatmaps/${i.id}`;
+    const url = `/beatmaps/${i.id}`;
     let params: Dict = {
     };
     return await helper.get(
@@ -79,7 +79,7 @@ export async function maps(i: {
     ids: number[];
 }) {
     if (!i.ids || i.ids.length == 0) throw new Error('Missing beatmap IDs');
-    const url = helper.baseUrl.v2 + `/beatmaps`;
+    const url = `/beatmaps`;
     let params: Dict = {
         ids: i.ids
     };
@@ -94,7 +94,7 @@ export async function mapLookup(i: {
     id?: number,
 }) {
     if (!(i.filename && i.checksum && i.id)) throw new Error('Please input a filename, checksum or ID to lookup');
-    const url = helper.baseUrl.v2 + `/beatmaps/lookup`;
+    const url = `/beatmaps/lookup`;
     let params: Dict = {
     };
     if (i.filename)
@@ -115,7 +115,7 @@ export async function attributes(i: {
     ruleset_id?: helper.Ruleset;
 }) {
     if (!i.id) throw new Error('Missing beatmap ID');
-    const url = helper.baseUrl.v2 + `/beatmaps/${i.id}`;
+    const url = `/beatmaps/${i.id}`;
     let params: Dict = {
     };
     let body: Dict = {
@@ -137,7 +137,7 @@ export async function mapset(i: {
     id: number;
 }) {
     if (!i.id) throw new Error('Missing beatmapset ID');
-    const url = helper.baseUrl.v2 + `/beatmapsets/${i.id}`;
+    const url = `/beatmapsets/${i.id}`;
     let params: Dict = {
     };
     return await helper.get(
@@ -154,7 +154,7 @@ export async function mapsetLookup(i: {
     id?: number,
 }) {
     if (!(i.filename && i.checksum && i.id)) throw new Error('Please input a filename, checksum or ID to lookup');
-    const url = helper.baseUrl.v2 + `/beatmapsets/lookup`;
+    const url = `/beatmapsets/lookup`;
     let params: Dict = {
     };
     if (i.filename)
@@ -171,7 +171,7 @@ export async function mapsetLookup(i: {
 export async function search(i: {
     cursor_string?: string;
 }) {
-    const url = helper.baseUrl.v2 + `/beatmapsets/search`;
+    const url = `/beatmapsets/search`;
     let params: Dict = {
         cursor_string: i?.cursor_string ?? ''
     };
@@ -184,7 +184,7 @@ export async function packs(i: {
     type?: string,
     cursor_string?: string;
 }) {
-    const url = helper.baseUrl.v2 + `/beatmaps/packs`;
+    const url = `/beatmaps/packs`;
     let params: Dict = {
     };
     if (i.type)
@@ -200,7 +200,7 @@ export async function pack(i: {
     pack: string,
     legacy_only: boolean,
 }) {
-    const url = helper.baseUrl.v2 + `/beatmaps/packs/${i.pack}`;
+    const url = `/beatmaps/packs/${i.pack}`;
     let params: Dict = {
     };
     if (i.legacy_only)

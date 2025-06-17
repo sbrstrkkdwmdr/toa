@@ -8,7 +8,7 @@ export async function page(i: {
 }) {
     if (!i.path) throw new Error('Missing path');
     if (!i.locale) i.locale = 'en';
-    const url = helper.baseUrl.v2 + `/wiki/${i.locale}/${i.path}`;
+    const url = `/wiki/${i.locale}/${i.path}`;
 
     return await helper.get(
         url, {}

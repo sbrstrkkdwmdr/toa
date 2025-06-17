@@ -124,7 +124,7 @@ export async function get(url: string, params: Dict, tries: number = 0) {
             inp.searchParams.append(key, params[key]);
         }
     }
-    const data = (await axios.get(url, {
+    const data = (await axios.get(baseUrl.v2 + url, {
         headers: {
             Authorization: `Bearer ${credentials?.auth?.access_token}`,
             "Content-Type": "application/json",
@@ -171,7 +171,7 @@ export async function post(url: string, params: Dict, body: Dict, tries: number 
             inp.searchParams.append(key, params[key]);
         }
     }
-    const data = (await axios.post(url,
+    const data = (await axios.post(baseUrl.v2 + url,
         JSON.stringify(body),
         {
             headers: {

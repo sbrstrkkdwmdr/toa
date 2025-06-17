@@ -17,9 +17,9 @@ export async function single(i: {
     mode?: apitypes.GameMode;
 }) {
     if (!i.id) throw new Error('Missing score ID');
-    let url = helper.baseUrl.v2 + `/scores/${i.id}`;
+    let url = `/scores/${i.id}`;
     if (i.mode) {
-        url = helper.baseUrl.v2 + `/scores/${i.mode}/${i.id}`;
+        url = `/scores/${i.mode}/${i.id}`;
     }
     return await helper.get(
         url,
@@ -31,7 +31,7 @@ export async function scores(i: {
     ruleset?: apitypes.GameMode,
     cursor_string?: string,
 }) {
-    let url = helper.baseUrl.v2 + `/scores`;
+    let url = `/scores`;
     let params: Dict = {};
     if (i.ruleset) params.ruleset = i.ruleset;
     if (i.cursor_string) params.cursor_string = i.cursor_string;
@@ -59,7 +59,7 @@ export async function list(i: {
     if (i.include_fails) params.include_fails = +i.include_fails;
     if (i.offset) params.offset = i.offset;
 
-    const url = helper.baseUrl.v2 + `/users/${i.user_id}/scores/${i.type}`;
+    const url = `/users/${i.user_id}/scores/${i.type}`;
     return await helper.get(
         url, params
     ) as Promise<apitypes.Score[]>;

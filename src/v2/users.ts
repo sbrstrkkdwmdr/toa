@@ -15,7 +15,7 @@ export async function profile(i: {
     id?: string,
 }) {
     if (!i.name && !i.id) throw new Error('Missing an ID or username');
-    let url = helper.baseUrl.v2 + `/users/${i.name}`;
+    let url = `/users/${i.name}`;
     if (i?.mode) {
         url += `/${i.mode}`;
     }
@@ -30,7 +30,7 @@ export async function users(i: {
     include_variant_statistics?: boolean;
 }) {
     if (!i.ids || i.ids.length == 0) throw new Error('Missing user IDs');
-    const url = helper.baseUrl.v2 + `/users`;
+    const url = `/users`;
     let params: Dict = {
         ids: i.ids
     };
@@ -48,7 +48,7 @@ export async function recentActivity(i: {
     name: string,
     limit?: number,
 }) {
-    const url = helper.baseUrl.v2 + `/users/${i.name}/recent_activity`;
+    const url = `/users/${i.name}/recent_activity`;
     if (!i?.limit) {
         i.limit = 100;
     }
@@ -77,7 +77,7 @@ export async function beatmaps(i: {
         params.limit = i.limit;
     if (i.offset)
         params.offset = i.offset;
-    const url = helper.baseUrl.v2 + `/users/${i.user_id}/beatmapsets/${i.type}`;
+    const url = `/users/${i.user_id}/beatmapsets/${i.type}`;
 
     return await helper.get(
         url, params
@@ -97,7 +97,7 @@ export async function mostPlayed(i: {
         params.limit = i.limit;
     if (i.offset)
         params.offset = i.offset;
-    const url = helper.baseUrl.v2 + `/users/${i.user_id}/beatmapsets/most_played`;
+    const url = `/users/${i.user_id}/beatmapsets/most_played`;
 
     return await helper.get(
         url, params
@@ -117,7 +117,7 @@ export async function kudosu(i: {
         params.limit = i.limit;
     if (i.offset)
         params.offset = i.offset;
-    const url = helper.baseUrl.v2 + `/users/${i.user_id}/kudosu`;
+    const url = `/users/${i.user_id}/kudosu`;
 
     return await helper.get(
         url, params
@@ -130,7 +130,7 @@ export async function lookup(i: {
     id?: number,
 }) {
     if (!(i.checksum && i.id)) throw new Error('Please input a checksum or ID to lookup');
-    const url = helper.baseUrl.v2 + `/users/lookup`;
+    const url = `/users/lookup`;
     let params: Dict = {
     };
     if (i.checksum)
@@ -160,7 +160,7 @@ export async function scores(i: {
     if (i.include_fails) params.include_fails = +i.include_fails;
     if (i.offset) params.offset = i.offset;
 
-    const url = helper.baseUrl.v2 + `/users/${i.user_id}/scores/${i.type}`;
+    const url = `/users/${i.user_id}/scores/${i.type}`;
     return await helper.get(
         url, params
     ) as Promise<apitypes.Score[]>;

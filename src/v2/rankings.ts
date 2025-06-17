@@ -8,7 +8,7 @@ export async function kudosu(i: {
     let params: Dict = {};
     if (i.page) params.page = i.page;
 
-    const url = helper.baseUrl.v2 + `/rankings/kudosu`;
+    const url = `/rankings/kudosu`;
     return await helper.get(
         url, params
     ) as Promise<apitypes.User[]>;
@@ -38,7 +38,7 @@ export async function ranking(i: {
     if (i.spotlight) params.spotlight = i.spotlight;
     if (i.variant) params.variant = i.variant;
 
-    const url = helper.baseUrl.v2 + `/rankings/${i.mode}/${i.type}`;
+    const url = `/rankings/${i.mode}/${i.type}`;
     return await helper.get(
         url, params
     ) as Promise<apitypes.Rankings>;
@@ -46,7 +46,7 @@ export async function ranking(i: {
 
 export async function spotlights() {
     let params: Dict = {};
-    const url = helper.baseUrl.v2 + `/spotlights`;
+    const url = `/spotlights`;
     return await helper.get(
         url, params
     ) as Promise<apitypes.SpotLights>;
