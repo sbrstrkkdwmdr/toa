@@ -14,7 +14,13 @@ couldn't think of a better name than TypeScript osu! Api (wrapper)
 
 ### v1 routes
 
--   will do once v2 is at least mostly done
+-   [x] /get_beatmaps
+-   [x] /get_user
+-   [x] /get_scores
+-   [x] /get_user_best
+-   [x] /get_user_recent
+-   [x] /get_match
+-   [x] /get_replay
 
 ### v2 routes
 

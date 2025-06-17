@@ -210,6 +210,7 @@ export async function get_v1(url: string, params: Dict, tries: number = 0) {
     }
     await checkAuth();
     let inp = new URL(url);
+    params.k = credentials.key;
     for (const key in params) {
         if (Array.isArray(params[key])) {
             const _temp: any[] = params[key];
@@ -220,7 +221,7 @@ export async function get_v1(url: string, params: Dict, tries: number = 0) {
             inp.searchParams.append(key, params[key]);
         }
     }
-    const data = (await axios.get(url, {
+    const data = (await axios.get(baseUrl.v1 + url, {
         headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
