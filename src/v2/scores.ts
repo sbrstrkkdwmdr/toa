@@ -27,7 +27,7 @@ export async function single(i: {
     ) as Promise<apitypes.Score>;
 };
 
-export async function scores(i: {
+export async function multiple(i: {
     ruleset?: apitypes.GameMode,
     cursor_string?: string,
 }) {
