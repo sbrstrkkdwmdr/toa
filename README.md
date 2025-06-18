@@ -24,6 +24,8 @@ couldn't think of a better name than TypeScript osu! Api (wrapper)
 
 ### v2 routes
 
+will do all public scope only routes first
+
 -   [x] POST /oauth/token
 -   [ ] DELETE /oauth/tokens/current
 -   [x] /beatmaps/packs
@@ -43,9 +45,9 @@ couldn't think of a better name than TypeScript osu! Api (wrapper)
 -   [x] /beatmapsets/lookup
 -   [x] /beatmapsets/{beatmapset}
 -   [ ] /beatmapsets/{beatmapset}/download
--   [ ] /changelog/{stream}/{build}
--   [ ] /changelog
--   [ ] /changelog/{changelog}
+-   [x] /changelog/{stream}/{build}
+-   [x] /changelog
+-   [x] /changelog/{changelog}
 -   [ ] POST /chat/ack
 -   [ ] POST /chat/new
 -   [ ] /chat/updates
@@ -57,9 +59,9 @@ couldn't think of a better name than TypeScript osu! Api (wrapper)
 -   [ ] /chat/channels
 -   [ ] POST /chat/channels
 -   [ ] /chat/channels/{channel}
--   [ ] /comments
+-   [x] /comments
 -   [ ] POST /comments
--   [ ] /comments/{comment}
+-   [x] /comments/{comment}
 -   [ ] PUT/PATCH /comments/{comment}
 -   [ ] DELETE /comments/{comment}
 -   [ ] POST /comments/{comment}/vote
