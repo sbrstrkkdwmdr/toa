@@ -4,60 +4,55 @@ import { Dict } from '../types';
 
 export async function scores(i: {
     id: number,
-    mode: apitypes.GameMode,
-    legacy_only?: boolean,
+    ruleset: apitypes.GameMode,
+    legacy_only?: 1 | 0,
     mods?: apitypes.ModAcronym[],
     limit?: number;
     type?: string;
 }) {
     if (!i.id) throw new Error('Missing beatmap ID');
-    if (!i.id) throw new Error('Missing ruleset');
+    if (!i.ruleset) throw new Error('Missing ruleset');
+
     const url = `/beatmaps/${i.id}/scores`;
-    let params: Dict = {
-    };
-    if (i.legacy_only) params.legacy_only = +i.legacy_only;
-    if (i.mods) params.mods = i.mods;
-    if (i.limit) params.limit = i.limit;
-    if (i.type) params.type = i.type;
+
+    const params = helper.setParams(i, {}, ['ruleset', 'legacy_only', 'mods', 'limit', 'type']);
+
     return await helper.requests.get_v2(
-        url,
-        {
-            ruleset: i.mode,
-            mods: i.mods ?? [],
-            limit: i.limit ?? 100,
-        }
+        url, params
     ) as Promise<apitypes.BeatmapScores<apitypes.Score>>;
 }
 
 export async function userScore(i: {
     user_id: number,
     map_id: number,
-    legacy_only?: boolean,
+    legacy_only?: 1 | 0,
     mods?: apitypes.ModAcronym[],
     ruleset?: apitypes.GameMode,
 }) {
+    if (!i.user_id) throw new Error('Missing user ID');
+    if (!i.map_id) throw new Error('Missing map ID');
+
     const url = `/beatmaps/${i.map_id}/scores/users/${i.user_id}`;
-    let params: Dict = {
-    };
-    if (i.legacy_only) params.legacy_only = +i.legacy_only;
-    if (i.mods) params.mods = i.mods;
-    if (i.ruleset) params.ruleset = i.ruleset;
+
+    const params = helper.setParams(i, {}, ['legacy_only', 'mods', 'ruleset']);
+
     return await helper.requests.get_v2(url, params) as Promise<apitypes.BeatmapUserScore>;
 }
 
 export async function userScores(i: {
     user_id: number,
     map_id: number,
-    legacy_only?: boolean,
+    legacy_only?: 1 | 0,
     mods?: apitypes.ModAcronym[],
     ruleset?: apitypes.GameMode,
 }) {
+    if (!i.user_id) throw new Error('Missing user ID');
+    if (!i.map_id) throw new Error('Missing map ID');
+
     const url = `/beatmaps/${i.map_id}/scores/users/${i.user_id}/all`;
-    let params: Dict = {
-    };
-    if (i.legacy_only) params.legacy_only = +i.legacy_only;
-    if (i.mods) params.mods = i.mods;
-    if (i.ruleset) params.ruleset = i.ruleset;
+
+    const params = helper.setParams(i, {}, ['legacy_only', 'mods', 'ruleset']);
+
     return await helper.requests.get_v2(
         url, params
     ) as Promise<{ scores: apitypes.Score[]; }>;
@@ -83,6 +78,7 @@ export async function maps(i: {
     let params: Dict = {
         ids: i.ids
     };
+
     return await helper.requests.get_v2(
         url, params
     ) as Promise<apitypes.BeatmapExtended[]>;
@@ -94,15 +90,11 @@ export async function mapLookup(i: {
     id?: number,
 }) {
     if (!(i.filename && i.checksum && i.id)) throw new Error('Please input a filename, checksum or ID to lookup');
+
     const url = `/beatmaps/lookup`;
-    let params: Dict = {
-    };
-    if (i.filename)
-        params.filename = i.filename;
-    if (i.checksum)
-        params.checksum = i.checksum;
-    if (i.id)
-        params.id = i.id;
+
+    const params = helper.setParams(i, {}, ['filename', 'checksum', 'id']);
+
     return await helper.requests.get_v2(
         url, params
     ) as Promise<apitypes.BeatmapExtended>;
@@ -118,15 +110,8 @@ export async function attributes(i: {
     const url = `/beatmaps/${i.id}`;
     let params: Dict = {
     };
-    let body: Dict = {
+    const body = helper.setParams(i, {}, ['mods', 'ruleset', 'ruleset_id']);
 
-    };
-    if (i.mods)
-        body.mods = i.mods;
-    if (i.ruleset)
-        body.ruleset = i.ruleset;
-    if (i.ruleset_id)
-        body.ruleset_id = i.ruleset_id;
 
     return await helper.requests.post_v2(
         url, params, body
@@ -154,15 +139,11 @@ export async function mapsetLookup(i: {
     id?: number,
 }) {
     if (!(i.filename && i.checksum && i.id)) throw new Error('Please input a filename, checksum or ID to lookup');
+
     const url = `/beatmapsets/lookup`;
-    let params: Dict = {
-    };
-    if (i.filename)
-        params.filename = i.filename;
-    if (i.checksum)
-        params.checksum = i.checksum;
-    if (i.id)
-        params.id = i.id;
+
+    const params = helper.setParams(i, {}, ['filename', 'checksum', 'id']);
+
     return await helper.requests.get_v2(
         url, params
     ) as Promise<apitypes.BeatmapsetExtended>;
@@ -185,12 +166,10 @@ export async function packs(i: {
     cursor_string?: string;
 }) {
     const url = `/beatmaps/packs`;
-    let params: Dict = {
-    };
-    if (i.type)
-        params.type = i.type;
-    if (i.cursor_string)
-        params.cursor_string = i.cursor_string;
+
+    const params = helper.setParams(i, {}, ['type', 'cursor_string']);
+
+
     return await helper.requests.get_v2(
         url, params
     ) as Promise<apitypes.BeatmapPack[]>;
@@ -198,13 +177,12 @@ export async function packs(i: {
 
 export async function pack(i: {
     pack: string,
-    legacy_only: boolean,
+    legacy_only: 1 | 0,
 }) {
     const url = `/beatmaps/packs/${i.pack}`;
-    let params: Dict = {
-    };
-    if (i.legacy_only)
-        params.legacy_only = +i.legacy_only;
+
+    const params = helper.setParams(i, {}, ['legacy_only']);
+
     return await helper.requests.get_v2(
         url, params
     ) as Promise<apitypes.BeatmapPack>;

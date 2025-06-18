@@ -26,4 +26,14 @@ export const baseUrl = {
     v2: 'https://osu.ppy.sh/api/v2'
 };
 
+export function setParams(input: Dict, params: Dict, keys: string[]) {
+    for(const key of keys){
+        if(input[key]){
+            params[key] = input[key];
+        }
+    }
+    return params;
+}
+
 export * as requests from './requests';
+

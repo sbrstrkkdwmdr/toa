@@ -32,9 +32,9 @@ export async function scores(i: {
     cursor_string?: string,
 }) {
     let url = `/scores`;
-    let params: Dict = {};
-    if (i.ruleset) params.ruleset = i.ruleset;
-    if (i.cursor_string) params.cursor_string = i.cursor_string;
+
+    const params = helper.setParams(i, {}, ['cursor_string', 'ruleset',]);
+
     return await helper.requests.get_v2(
         url,
         params
@@ -46,20 +46,16 @@ export async function list(i: {
     mode?: apitypes.GameMode;
     type: 'recent' | 'firsts' | 'best' | 'pinned',
     limit?: number,
-    include_fails?: boolean,
+    include_fails?: 1 | 0,
     offset?: number;
 }) {
     if (!i.user_id) throw new Error('Missing user ID');
     if (!i.type) throw new Error('Missing scores type');
-    let params: Dict = {
-        limit: 100,
-    };
-    if (i.mode) params.mode = i.mode;
-    if (i.limit) params.limit = i.limit;
-    if (i.include_fails) params.include_fails = +i.include_fails;
-    if (i.offset) params.offset = i.offset;
 
     const url = `/users/${i.user_id}/scores/${i.type}`;
+
+    const params = helper.setParams(i, { limit: 100 }, ['limit', 'offset', 'mode', 'include_fails']);
+
     return await helper.requests.get_v2(
         url, params
     ) as Promise<apitypes.Score[]>;
@@ -68,7 +64,7 @@ export async function list(i: {
 /**
  * past 24h
  */
-export async function recent(i: scoreListParams & { include_fails: boolean; }) {
+export async function recent(i: scoreListParams & { include_fails: 1 | 0; }) {
     return await list({
         user_id: i.user_id,
         mode: i.mode,
@@ -87,7 +83,7 @@ export async function best(i: scoreListParams) {
         user_id: i.user_id,
         mode: i.mode,
         limit: i.limit,
-        include_fails: false,
+        include_fails: 0,
         type: 'best',
         offset: i.offset
     });
@@ -101,7 +97,7 @@ export async function first(i: scoreListParams) {
         user_id: i.user_id,
         mode: i.mode,
         limit: i.limit,
-        include_fails: false,
+        include_fails: 0,
         type: 'firsts',
         offset: i.offset
     });
@@ -112,7 +108,7 @@ export async function pinned(i: scoreListParams) {
         user_id: i.user_id,
         mode: i.mode,
         limit: i.limit,
-        include_fails: false,
+        include_fails: 0,
         type: 'pinned',
         offset: i.offset
     });

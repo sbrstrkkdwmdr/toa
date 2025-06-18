@@ -5,11 +5,11 @@ import { Dict } from '../types';
 export async function kudosu(i: {
     page?: number;
 }) {
-    let params: Dict = {};
-    if (i.page) params.page = i.page;
-
     const url = `/rankings/kudosu`;
-    return await helper.get(
+
+    const params = helper.setParams(i, {}, ['page',]);
+
+    return await helper.requests.get_v2(
         url, params
     ) as Promise<apitypes.User[]>;
 }
@@ -31,15 +31,12 @@ export async function ranking(i: {
 }) {
     if (!i.mode) throw new Error('Missing mode');
     if (!i.type) throw new Error('Missing type');
-    let params: Dict = {};
-    if (i.country) params.country = i.country;
-    if (i.cursor) params.cursor = i.cursor;
-    if (i.filter) params.filter = i.filter;
-    if (i.spotlight) params.spotlight = i.spotlight;
-    if (i.variant) params.variant = i.variant;
 
     const url = `/rankings/${i.mode}/${i.type}`;
-    return await helper.get(
+
+    const params = helper.setParams(i, {}, ['country', 'cursor', 'filter', 'spotlight', 'variant',]);
+
+    return await helper.requests.get_v2(
         url, params
     ) as Promise<apitypes.Rankings>;
 }
@@ -47,7 +44,7 @@ export async function ranking(i: {
 export async function spotlights() {
     let params: Dict = {};
     const url = `/spotlights`;
-    return await helper.get(
+    return await helper.requests.get_v2(
         url, params
     ) as Promise<apitypes.SpotLights>;
 }

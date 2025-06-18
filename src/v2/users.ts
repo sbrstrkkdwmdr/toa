@@ -15,10 +15,13 @@ export async function profile(i: {
     id?: string,
 }) {
     if (!i.name && !i.id) throw new Error('Missing an ID or username');
+
     let url = `/users/${i.name}`;
+
     if (i?.mode) {
         url += `/${i.mode}`;
     }
+
     return await helper.requests.get_v2(
         url,
         {}
@@ -30,32 +33,25 @@ export async function users(i: {
     include_variant_statistics?: boolean;
 }) {
     if (!i.ids || i.ids.length == 0) throw new Error('Missing user IDs');
+
     const url = `/users`;
-    let params: Dict = {
-        ids: i.ids
-    };
-    if (i.include_variant_statistics)
-        params.include_variant_statistics = i.include_variant_statistics;
+
+    const params = helper.setParams(i, {}, ['ids', 'include_variant_statistics']);
+
     return await helper.requests.get_v2(
-        url,
-        {
-            ids: i.ids
-        }
+        url, params
     ) as Promise<apitypes.User[]>;
 }
 
 export async function recentActivity(i: {
-    name: string,
+    user_id: number,
     limit?: number,
 }) {
-    const url = `/users/${i.name}/recent_activity`;
-    if (!i?.limit) {
-        i.limit = 100;
-    }
-    let params: Dict = {
-        limit: 100,
-    };
-    if (i.limit) params.limit = i.limit;
+    if (!i.user_id) throw new Error('Missing user ID');
+
+    const url = `/users/${i.user_id}/recent_activity`;
+
+    const params = helper.setParams(i, { limit: 100 }, ['limit']);
 
     return await helper.requests.get_v2(
         url, params
@@ -70,14 +66,11 @@ export async function beatmaps(i: {
 }) {
     if (!i.user_id) throw new Error('Missing user ID');
     if (!i.type) throw new Error('Missing type');
-    const params: Dict = {
-        limit: 100
-    };
-    if (i.limit)
-        params.limit = i.limit;
-    if (i.offset)
-        params.offset = i.offset;
+
     const url = `/users/${i.user_id}/beatmapsets/${i.type}`;
+
+    const params = helper.setParams(i, { limit: 100 }, ['limit', 'offset']);
+
 
     return await helper.requests.get_v2(
         url, params
@@ -90,14 +83,10 @@ export async function mostPlayed(i: {
     offset?: number,
 }) {
     if (!i.user_id) throw new Error('Missing user ID');
-    const params: Dict = {
-        limit: 100
-    };
-    if (i.limit)
-        params.limit = i.limit;
-    if (i.offset)
-        params.offset = i.offset;
+
     const url = `/users/${i.user_id}/beatmapsets/most_played`;
+
+    const params = helper.setParams(i, { limit: 100 }, ['limit', 'offset']);
 
     return await helper.requests.get_v2(
         url, params
@@ -110,14 +99,10 @@ export async function kudosu(i: {
     offset?: number,
 }) {
     if (!i.user_id) throw new Error('Missing user ID');
-    const params: Dict = {
-        limit: 100
-    };
-    if (i.limit)
-        params.limit = i.limit;
-    if (i.offset)
-        params.offset = i.offset;
+
     const url = `/users/${i.user_id}/kudosu`;
+
+    const params = helper.setParams(i, { limit: 100 }, ['limit', 'offset']);
 
     return await helper.requests.get_v2(
         url, params
@@ -130,13 +115,11 @@ export async function lookup(i: {
     id?: number,
 }) {
     if (!(i.checksum && i.id)) throw new Error('Please input a checksum or ID to lookup');
+
     const url = `/users/lookup`;
-    let params: Dict = {
-    };
-    if (i.checksum)
-        params.checksum = i.checksum;
-    if (i.id)
-        params.id = i.id;
+
+    const params = helper.setParams(i, {}, ['id', 'checksum']);
+
     return await helper.requests.get_v2(
         url, params
     ) as Promise<apitypes.User[]>;
@@ -147,20 +130,16 @@ export async function scores(i: {
     mode?: apitypes.GameMode;
     type: 'recent' | 'firsts' | 'best' | 'pinned',
     limit?: number,
-    include_fails?: boolean,
+    include_fails?: 1 | 0,
     offset?: number;
 }) {
     if (!i.user_id) throw new Error('Missing user ID');
     if (!i.type) throw new Error('Missing scores type');
-    let params: Dict = {
-        limit: 100,
-    };
-    if (i.mode) params.mode = i.mode;
-    if (i.limit) params.limit = i.limit;
-    if (i.include_fails) params.include_fails = +i.include_fails;
-    if (i.offset) params.offset = i.offset;
 
     const url = `/users/${i.user_id}/scores/${i.type}`;
+
+    const params = helper.setParams(i, { limit: 100 }, ['limit', 'offset', 'mode', 'include_fails']);
+
     return await helper.requests.get_v2(
         url, params
     ) as Promise<apitypes.Score[]>;
@@ -169,7 +148,7 @@ export async function scores(i: {
 /**
  * past 24h
  */
-export async function scoresRecent(i: scoreListParams & { include_fails: boolean; }) {
+export async function scoresRecent(i: scoreListParams & { include_fails: 1 | 0; }) {
     return await scores({
         user_id: i.user_id,
         mode: i.mode,
@@ -188,7 +167,7 @@ export async function scoresBest(i: scoreListParams) {
         user_id: i.user_id,
         mode: i.mode,
         limit: i.limit,
-        include_fails: false,
+        include_fails: 0,
         type: 'best',
         offset: i.offset
     });
@@ -202,7 +181,7 @@ export async function scoresFirst(i: scoreListParams) {
         user_id: i.user_id,
         mode: i.mode,
         limit: i.limit,
-        include_fails: false,
+        include_fails: 0,
         type: 'firsts',
         offset: i.offset
     });
@@ -213,7 +192,7 @@ export async function scoresPinned(i: scoreListParams) {
         user_id: i.user_id,
         mode: i.mode,
         limit: i.limit,
-        include_fails: false,
+        include_fails: 0,
         type: 'pinned',
         offset: i.offset
     });

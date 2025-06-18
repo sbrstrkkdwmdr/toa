@@ -42,7 +42,7 @@ couldn't think of a better name than TypeScript osu! Api (wrapper)
 -   [x] /beatmapsets/search
 -   [x] /beatmapsets/lookup
 -   [x] /beatmapsets/{beatmapset}
--   [ ] DNI /beatmapsets/{beatmapset}/download
+-   [ ] /beatmapsets/{beatmapset}/download
 -   [ ] /changelog/{stream}/{build}
 -   [ ] /changelog
 -   [ ] /changelog/{changelog}
