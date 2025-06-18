@@ -1,5 +1,16 @@
 import { Dict } from "./types";
 
+export type Scope =
+    'chat.read' | // read chat, requires user
+    'chat.write' | // send message, requires user
+    'chat.write_manage' | // join/leave channels, requires user
+    'delegate' | // act as user, requires user
+    'forum.write' | // create/edit forums, requires user
+    'friends.read' | // read friend list, requires user
+    'identify' | // read user profile data, requires user
+    'public' | // read data, requires credentials only
+    'lazer'; // lazer client only
+
 export interface Beatmap {
     beatmapset_id: number,
     beatmapset?: Beatmapset,
