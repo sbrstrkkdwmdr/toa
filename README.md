@@ -36,9 +36,9 @@ couldn't think of a better name than TypeScript osu! Api (wrapper)
 -   [x] /beatmaps
 -   [x] /beatmaps/{beatmap}
 -   [x] POST /beatmaps/{beatmap}/attributes
--   [ ] LIKELY TO CHANGE SOON 2025-06-16 /beatmapsets/discussions/posts
--   [ ] LIKELY TO CHANGE SOON 2025-06-16 /beatmapsets/discussions/votes
--   [ ] LIKELY TO CHANGE SOON 2025-06-16 /beatmapsets/discussions
+-   [ ] /beatmapsets/discussions/posts
+-   [ ] /beatmapsets/discussions/votes
+-   [ ] /beatmapsets/discussions
 -   [x] /beatmapsets/search
 -   [x] /beatmapsets/lookup
 -   [x] /beatmapsets/{beatmapset}

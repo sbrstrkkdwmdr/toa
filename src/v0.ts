@@ -31,6 +31,14 @@ export function beatmapImages(mapSetId: string) {
     };
 }
 
+
 export function userAvatar(id: string) {
     return `https://a.ppy.sh/` + id;
+}
+
+/**
+ * beatmap .osu file
+ */
+export function mapFile(id:string) {
+    return `https://osu.ppy.sh/osu/${id}`;
 }
