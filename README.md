@@ -66,7 +66,7 @@ will do all public scope only routes first
 -   [ ] DELETE /comments/{comment}
 -   [ ] POST /comments/{comment}/vote
 -   [ ] DELETE /comments/{comment}/vote
--   [ ] /events
+-   [x] /events
 -   [ ] POST /forums/topics/{topic}/reply
 -   [ ] /forums/topics
 -   [ ] POST /forums/topics
