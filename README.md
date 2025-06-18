@@ -68,13 +68,13 @@ will do all public scope only routes first
 -   [ ] DELETE /comments/{comment}/vote
 -   [x] /events
 -   [ ] POST /forums/topics/{topic}/reply
--   [ ] /forums/topics
+-   [x] /forums/topics
 -   [ ] POST /forums/topics
--   [ ] /forums/topics/{topic}
+-   [x] /forums/topics/{topic}
 -   [ ] PUT/PATCH /forums/topics/{topic}
 -   [ ] PUT/PATCH /forums/posts/{post}
--   [ ] /forums
--   [ ] /forums/{forum}
+-   [x] /forums
+-   [x] /forums/{forum}
 -   [ ] /search
 -   [ ] /matches
 -   [ ] /matches/{match}

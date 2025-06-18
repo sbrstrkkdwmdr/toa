@@ -406,6 +406,13 @@ export interface Event {
     type: EventTypes,
 }
 
+export interface Forum {
+    id: number;
+    name: string;
+    description: string;
+    subforums?: Forum[];
+}
+
 export interface ForumPost {
     created_at: Timestamp,
     deleted_at?: Timestamp | null,
