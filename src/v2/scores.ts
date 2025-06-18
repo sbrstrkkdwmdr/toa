@@ -21,7 +21,7 @@ export async function single(i: {
     if (i.mode) {
         url = `/scores/${i.mode}/${i.id}`;
     }
-    return await helper.get(
+    return await helper.requests.get_v2(
         url,
         {}
     ) as Promise<apitypes.Score>;
@@ -35,7 +35,7 @@ export async function scores(i: {
     let params: Dict = {};
     if (i.ruleset) params.ruleset = i.ruleset;
     if (i.cursor_string) params.cursor_string = i.cursor_string;
-    return await helper.get(
+    return await helper.requests.get_v2(
         url,
         params
     ) as Promise<apitypes.Score>;
@@ -60,7 +60,7 @@ export async function list(i: {
     if (i.offset) params.offset = i.offset;
 
     const url = `/users/${i.user_id}/scores/${i.type}`;
-    return await helper.get(
+    return await helper.requests.get_v2(
         url, params
     ) as Promise<apitypes.Score[]>;
 }

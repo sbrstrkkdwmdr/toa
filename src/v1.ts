@@ -54,7 +54,7 @@ export async function beatmaps(i: {
             params[key] = (i as Dict)[key];
         }
     }
-    return await helper.get(
+    return await helper.requests.get_v1(
         url, params
     ) as Promise<apitypes.Beatmap[]>;
 }
@@ -75,7 +75,7 @@ export async function user(i: {
             params[key] = (i as Dict)[key];
         }
     }
-    return await helper.get(
+    return await helper.requests.get_v1(
         url, params
     ) as Promise<apitypes.User[]>;
 };
@@ -101,7 +101,7 @@ export async function mapLeaderboard(i: {
             params[key] = (i as Dict)[key];
         }
     }
-    return await helper.get(
+    return await helper.requests.get_v1(
         url, params
     ) as Promise<apitypes.Score[]>;
 }
@@ -122,7 +122,7 @@ export async function userBestScores(i: {
             params[key] = (i as Dict)[key];
         }
     }
-    return await helper.get(
+    return await helper.requests.get_v1(
         url, params
     ) as Promise<apitypes.Score[]>;
 }
@@ -143,7 +143,7 @@ export async function userRecentScores(i: {
             params[key] = (i as Dict)[key];
         }
     }
-    return await helper.get(
+    return await helper.requests.get_v1(
         url, params
     ) as Promise<apitypes.Score[]>;
 }
@@ -155,7 +155,7 @@ export async function match(i: {
     let params: Dict = {
         mp: i.match_id
     };
-    return await helper.get(
+    return await helper.requests.get_v1(
         url, params
     ) as Promise<apitypes.Match>;
 }
@@ -184,7 +184,7 @@ export async function replay(i: {
             params[key] = (i as Dict)[key];
         }
     }
-    return await helper.get(
+    return await helper.requests.get_v1(
         url, params
     ) as Promise<apitypes.Replay>;
 }

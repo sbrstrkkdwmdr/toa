@@ -19,7 +19,7 @@ export async function scores(i: {
     if (i.mods) params.mods = i.mods;
     if (i.limit) params.limit = i.limit;
     if (i.type) params.type = i.type;
-    return await helper.get(
+    return await helper.requests.get_v2(
         url,
         {
             ruleset: i.mode,
@@ -42,7 +42,7 @@ export async function userScore(i: {
     if (i.legacy_only) params.legacy_only = +i.legacy_only;
     if (i.mods) params.mods = i.mods;
     if (i.ruleset) params.ruleset = i.ruleset;
-    return await helper.get(url, params) as Promise<apitypes.BeatmapUserScore>;
+    return await helper.requests.get_v2(url, params) as Promise<apitypes.BeatmapUserScore>;
 }
 
 export async function userScores(i: {
@@ -58,7 +58,7 @@ export async function userScores(i: {
     if (i.legacy_only) params.legacy_only = +i.legacy_only;
     if (i.mods) params.mods = i.mods;
     if (i.ruleset) params.ruleset = i.ruleset;
-    return await helper.get(
+    return await helper.requests.get_v2(
         url, params
     ) as Promise<{ scores: apitypes.Score[]; }>;
 }
@@ -70,7 +70,7 @@ export async function map(i: {
     const url = `/beatmaps/${i.id}`;
     let params: Dict = {
     };
-    return await helper.get(
+    return await helper.requests.get_v2(
         url, params
     ) as Promise<apitypes.BeatmapExtended>;
 }
@@ -83,7 +83,7 @@ export async function maps(i: {
     let params: Dict = {
         ids: i.ids
     };
-    return await helper.get(
+    return await helper.requests.get_v2(
         url, params
     ) as Promise<apitypes.BeatmapExtended[]>;
 }
@@ -103,7 +103,7 @@ export async function mapLookup(i: {
         params.checksum = i.checksum;
     if (i.id)
         params.id = i.id;
-    return await helper.get(
+    return await helper.requests.get_v2(
         url, params
     ) as Promise<apitypes.BeatmapExtended>;
 }
@@ -128,7 +128,7 @@ export async function attributes(i: {
     if (i.ruleset_id)
         body.ruleset_id = i.ruleset_id;
 
-    return await helper.post(
+    return await helper.requests.post_v2(
         url, params, body
     ) as Promise<apitypes.BeatmapDifficultyAttributes>;
 }
@@ -140,7 +140,7 @@ export async function mapset(i: {
     const url = `/beatmapsets/${i.id}`;
     let params: Dict = {
     };
-    return await helper.get(
+    return await helper.requests.get_v2(
         url, params
     ) as Promise<apitypes.BeatmapsetExtended>;
 }
@@ -163,7 +163,7 @@ export async function mapsetLookup(i: {
         params.checksum = i.checksum;
     if (i.id)
         params.id = i.id;
-    return await helper.get(
+    return await helper.requests.get_v2(
         url, params
     ) as Promise<apitypes.BeatmapsetExtended>;
 }
@@ -175,7 +175,7 @@ export async function search(i: {
     let params: Dict = {
         cursor_string: i?.cursor_string ?? ''
     };
-    return await helper.get(
+    return await helper.requests.get_v2(
         url, params
     ) as Promise<apitypes.BeatmapsetSearch>;
 }
@@ -191,7 +191,7 @@ export async function packs(i: {
         params.type = i.type;
     if (i.cursor_string)
         params.cursor_string = i.cursor_string;
-    return await helper.get(
+    return await helper.requests.get_v2(
         url, params
     ) as Promise<apitypes.BeatmapPack[]>;
 }
@@ -205,7 +205,7 @@ export async function pack(i: {
     };
     if (i.legacy_only)
         params.legacy_only = +i.legacy_only;
-    return await helper.get(
+    return await helper.requests.get_v2(
         url, params
     ) as Promise<apitypes.BeatmapPack>;
 }

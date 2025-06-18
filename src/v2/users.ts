@@ -19,7 +19,7 @@ export async function profile(i: {
     if (i?.mode) {
         url += `/${i.mode}`;
     }
-    return await helper.get(
+    return await helper.requests.get_v2(
         url,
         {}
     ) as Promise<apitypes.UserExtended>;
@@ -36,7 +36,7 @@ export async function users(i: {
     };
     if (i.include_variant_statistics)
         params.include_variant_statistics = i.include_variant_statistics;
-    return await helper.get(
+    return await helper.requests.get_v2(
         url,
         {
             ids: i.ids
@@ -57,7 +57,7 @@ export async function recentActivity(i: {
     };
     if (i.limit) params.limit = i.limit;
 
-    return await helper.get(
+    return await helper.requests.get_v2(
         url, params
     ) as Promise<apitypes.Event[]>;
 }
@@ -79,7 +79,7 @@ export async function beatmaps(i: {
         params.offset = i.offset;
     const url = `/users/${i.user_id}/beatmapsets/${i.type}`;
 
-    return await helper.get(
+    return await helper.requests.get_v2(
         url, params
     ) as Promise<apitypes.Beatmapset[]>;
 };
@@ -99,7 +99,7 @@ export async function mostPlayed(i: {
         params.offset = i.offset;
     const url = `/users/${i.user_id}/beatmapsets/most_played`;
 
-    return await helper.get(
+    return await helper.requests.get_v2(
         url, params
     ) as Promise<apitypes.BeatmapPlaycount[]>;
 };
@@ -119,7 +119,7 @@ export async function kudosu(i: {
         params.offset = i.offset;
     const url = `/users/${i.user_id}/kudosu`;
 
-    return await helper.get(
+    return await helper.requests.get_v2(
         url, params
     ) as Promise<apitypes.KudosuHistory[]>;
 }
@@ -137,7 +137,7 @@ export async function lookup(i: {
         params.checksum = i.checksum;
     if (i.id)
         params.id = i.id;
-    return await helper.get(
+    return await helper.requests.get_v2(
         url, params
     ) as Promise<apitypes.User[]>;
 };
@@ -161,7 +161,7 @@ export async function scores(i: {
     if (i.offset) params.offset = i.offset;
 
     const url = `/users/${i.user_id}/scores/${i.type}`;
-    return await helper.get(
+    return await helper.requests.get_v2(
         url, params
     ) as Promise<apitypes.Score[]>;
 }

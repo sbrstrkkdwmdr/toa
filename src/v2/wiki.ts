@@ -10,7 +10,7 @@ export async function page(i: {
     if (!i.locale) i.locale = 'en';
     const url = `/wiki/${i.locale}/${i.path}`;
 
-    return await helper.get(
+    return await helper.requests.get_v2(
         url, {}
     ) as Promise<apitypes.KudosuHistory[]>;
 }
