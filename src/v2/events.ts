@@ -9,6 +9,6 @@ export async function get() {
 
     return await helper.requests.get_v2(url, params) as Promise<{
         cursor_string: apitypes.CursorString,
-        events: Event[],
+        events: apitypes.Event[],
     }>;
 }
