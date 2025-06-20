@@ -442,9 +442,9 @@ export interface ForumTopic {
 
 export type GameMode = ('osu' | 'taiko' | 'fruits' | 'mania');
 
-export type Ruleset = number;
+// export type Ruleset = number;
 
-export enum RulesetEnum {
+export enum Ruleset {
     osu = 0,
     taiko = 1,
     fruits = 2,
@@ -480,6 +480,38 @@ export interface KudosuHistory {
     created_at: Timestamp,
     giver?: Giver | null,
     post: Post,
+}
+
+export interface Match {
+    id: number,
+    start_time: Timestamp,
+    end_time?: Timestamp,
+    name: string,
+}
+
+export interface MatchEvent {
+    id: number,
+    timestamp: Timestamp,
+    detail: {
+        type: MatchEventType,
+        text: string,
+    };
+    user_id?: number;
+    game?: MatchGame;
+}
+
+export interface MatchGame {
+    id: number,
+    beatmap: Beatmap,
+    beatmap_id: number,
+    start_time: Timestamp,
+    end_time?: Timestamp,
+    mode: GameMode,
+    mode_int: Ruleset,
+    mods: string[],
+    scores: Score[],
+    scoring_type: ['accuracy', 'combo', 'score', 'scorev2'],
+    team_type: ['head-to-head', 'tag-coop', 'tag-team-vs', 'team-vs'],
 }
 
 export interface MultiplayerScore {
@@ -555,6 +587,50 @@ export interface Rankings {
     ranking: UserStatistics[],
     spotlight?: SpotLight | null,
     total: number,
+}
+
+// taken from https://github.com/cyperdark/osu-api-extended/blob/master/types/v2/rooms_list.ts
+export interface Room {
+    id: number,
+    name: string,
+    category: string,
+    type: string,
+    user_id: number,
+    starts_at: string,
+    ends_at: any,
+    max_attempts: any,
+    participant_count: number,
+    channel_id: number,
+    active: boolean,
+    has_password: boolean,
+    queue_mode: string,
+    auto_skip: boolean,
+    current_playlist_item: PlaylistItem,
+    difficulty_range: {
+        min: number,
+        max: number,
+    };
+    host: User,
+    playlist_item_stats: {
+        count_active: number,
+        count_total: number,
+        ruleset_ids: number[],
+    },
+    recent_participants: User[],
+}
+
+export interface PlaylistItem {
+    id: number,
+    room_id: number,
+    beatmap_id: number,
+    ruleset_id: number,
+    allowed_mods: Mod[],
+    required_mods: Mod[],
+    expired: boolean,
+    owner_id: number,
+    playlist_order: number,
+    played_at: any,
+    beatmap: Beatmap,
 }
 
 //==============================================================================================================================================================================================
@@ -991,6 +1067,14 @@ interface Post {
     title: string,
 };
 
+type MatchEventType = 'host-changed' |
+    'match-created' |
+    'match-disbanded' |
+    'other' |
+    'player-joined' |
+    'player-kicked' |
+    'player-left';
+
 //scores
 // https://github.com/ppy/osu-web/blob/master/database/mods.json
 export interface Mod {
@@ -1171,11 +1255,9 @@ type UserStatisticsRulesets = any;/* {
 
 } */
 
-interface Country { code: CountryCode, name: CountryName; };
+interface Country { code: CountryCode, name: string; };
 
 type CountryCode = string;
-
-type CountryName = string;
 
 type ProfilePage = 'me' | 'recent_activity' | 'beatmaps' | 'historical' | 'kudosu' | 'top_ranks' | 'medals';
 
