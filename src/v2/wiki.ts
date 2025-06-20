@@ -8,6 +8,8 @@ export async function page(i: {
 }) {
     if (!i.path) throw new Error('Missing path');
     if (!i.locale) i.locale = 'en';
+    if (!helper.allowed('public')) throw new Error('Missing scope: public');
+    
     const url = `/wiki/${i.locale}/${i.path}`;
 
     return await helper.requests.get_v2(

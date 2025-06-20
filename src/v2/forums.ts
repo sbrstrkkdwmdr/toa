@@ -8,6 +8,8 @@ export async function topicListing(i: {
     limit?: number,
     cursor_string?: string,
 }) {
+    if (!helper.allowed('public')) throw new Error('Missing scope: public');
+    
     const url = `/forums/topics`;
 
     const params = helper.setParams(i, {});

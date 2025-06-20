@@ -17,10 +17,13 @@ export async function single(i: {
     mode?: apitypes.GameMode;
 }) {
     if (!i.id) throw new Error('Missing score ID');
+    if (!helper.allowed('public')) throw new Error('Missing scope: public');
+
     let url = `/scores/${i.id}`;
     if (i.mode) {
         url = `/scores/${i.mode}/${i.id}`;
     }
+
     return await helper.requests.get_v2(
         url,
         {}
@@ -31,6 +34,8 @@ export async function multiple(i: {
     ruleset?: apitypes.GameMode,
     cursor_string?: string,
 }) {
+    if (!helper.allowed('public')) throw new Error('Missing scope: public');
+
     let url = `/scores`;
 
     const params = helper.setParams(i, {}, ['cursor_string', 'ruleset',]);
@@ -51,6 +56,7 @@ export async function list(i: {
 }) {
     if (!i.user_id) throw new Error('Missing user ID');
     if (!i.type) throw new Error('Missing scores type');
+    if (!helper.allowed('public')) throw new Error('Missing scope: public');
 
     const url = `/users/${i.user_id}/scores/${i.type}`;
 

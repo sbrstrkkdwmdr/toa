@@ -13,8 +13,13 @@ export const credentials: {
 } = {};
 
 // TODO - for things like chat access and checking if scopes are enabled
-export function validScopes(): apitypes.Scope[] {
-    return [];
+const validScopes: apitypes.Scope[] = ['public'];
+
+export function allowed(...scopes: apitypes.Scope[]) {
+    for (const scope of scopes) {
+        if (!validScopes.includes(scope)) return false;
+    }
+    return true;
 }
 
 export enum Ruleset {
@@ -30,7 +35,7 @@ export const baseUrl = {
 };
 
 export function setParams(input: Dict, params: Dict, keys?: string[]) {
-    if(!keys){
+    if (!keys) {
         return setParams_all(input, params);
     }
     for (const key of keys) {

@@ -76,12 +76,12 @@ will do all public scope only routes first
 -   [x] /forums
 -   [x] /forums/{forum}
 -   [ ] /search
--   [ ] /matches
--   [ ] /matches/{match}
+-   [x] /matches
+-   [x] /matches/{match}
 -   [ ] /rooms/{room}/playlist/{playlist}/scores/users/{user}
--   [ ] /rooms/{room}/playlist/{playlist}/scores
+-   [x] /rooms/{room}/playlist/{playlist}/scores
 -   [ ] /rooms/{room}/playlist/{playlist}/scores/{score}
--   [ ] /rooms
+-   [x] /rooms
 -   [ ] /news
 -   [ ] /news/{news}
 -   [ ] /notifications
@@ -136,3 +136,9 @@ will do all public scope only routes first
 -   [ ] /me/download-quota-check
 -   [x] /users/lookup
 -   [ ] /tags
+
+## Credits
+
+Most information is taken from the [osu! web docs](https://osu.ppy.sh/docs/index.html)
+
+Extra information is grabbed from [osu-api-extended](https://github.com/cyperdark/osu-api-extended)

@@ -5,6 +5,8 @@ import { Dict } from '../types';
 export async function kudosu(i: {
     page?: number;
 }) {
+    if (!helper.allowed('public')) throw new Error('Missing scope: public');
+    
     const url = `/rankings/kudosu`;
 
     const params = helper.setParams(i, {}, ['page',]);
@@ -31,6 +33,7 @@ export async function ranking(i: {
 }) {
     if (!i.mode) throw new Error('Missing mode');
     if (!i.type) throw new Error('Missing type');
+    if (!helper.allowed('public')) throw new Error('Missing scope: public');
 
     const url = `/rankings/${i.mode}/${i.type}`;
 
@@ -42,8 +45,12 @@ export async function ranking(i: {
 }
 
 export async function spotlights() {
-    let params: Dict = {};
+    if (!helper.allowed('public')) throw new Error('Missing scope: public');
+    
     const url = `/spotlights`;
+    
+    const params: Dict = {};
+    
     return await helper.requests.get_v2(
         url, params
     ) as Promise<apitypes.SpotLights>;

@@ -15,6 +15,7 @@ export async function profile(i: {
     id?: string,
 }) {
     if (!i.name && !i.id) throw new Error('Missing an ID or username');
+    if (!helper.allowed('public')) throw new Error('Missing scope: public');
 
     let url = `/users/${i.name}`;
 
@@ -33,6 +34,7 @@ export async function users(i: {
     include_variant_statistics?: boolean;
 }) {
     if (!i.ids || i.ids.length == 0) throw new Error('Missing user IDs');
+    if (!helper.allowed('public')) throw new Error('Missing scope: public');
 
     const url = `/users`;
 
@@ -48,6 +50,7 @@ export async function recentActivity(i: {
     limit?: number,
 }) {
     if (!i.user_id) throw new Error('Missing user ID');
+    if (!helper.allowed('public')) throw new Error('Missing scope: public');
 
     const url = `/users/${i.user_id}/recent_activity`;
 
@@ -66,6 +69,7 @@ export async function beatmaps(i: {
 }) {
     if (!i.user_id) throw new Error('Missing user ID');
     if (!i.type) throw new Error('Missing type');
+    if (!helper.allowed('public')) throw new Error('Missing scope: public');
 
     const url = `/users/${i.user_id}/beatmapsets/${i.type}`;
 
@@ -83,6 +87,7 @@ export async function mostPlayed(i: {
     offset?: number,
 }) {
     if (!i.user_id) throw new Error('Missing user ID');
+    if (!helper.allowed('public')) throw new Error('Missing scope: public');
 
     const url = `/users/${i.user_id}/beatmapsets/most_played`;
 
@@ -99,6 +104,7 @@ export async function kudosu(i: {
     offset?: number,
 }) {
     if (!i.user_id) throw new Error('Missing user ID');
+    if (!helper.allowed('public')) throw new Error('Missing scope: public');
 
     const url = `/users/${i.user_id}/kudosu`;
 
@@ -115,6 +121,7 @@ export async function lookup(i: {
     id?: number,
 }) {
     if (!(i.checksum && i.id)) throw new Error('Please input a checksum or ID to lookup');
+    if (!helper.allowed('public')) throw new Error('Missing scope: public');
 
     const url = `/users/lookup`;
 
@@ -135,6 +142,7 @@ export async function scores(i: {
 }) {
     if (!i.user_id) throw new Error('Missing user ID');
     if (!i.type) throw new Error('Missing scores type');
+    if (!helper.allowed('public')) throw new Error('Missing scope: public');
 
     const url = `/users/${i.user_id}/scores/${i.type}`;
 

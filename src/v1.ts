@@ -45,7 +45,7 @@ export async function beatmaps(i: {
     if (Array.isArray(i.mods ?? 0)) {
         i.mods = modsToInt(i.mods as apitypes.Mods[]);
     }
-    let params: Dict = {
+    const params: Dict = {
     };
     for (const key in i) {
         if (convert[key]) {
@@ -67,7 +67,7 @@ export async function user(i: {
 }) {
     if (!(i.user)) throw new Error('Missing user');
     const url = `/get_user`;
-    let params: Dict = {};
+    const params: Dict = {};
     for (const key in i) {
         if (convert[key]) {
             params[convert[key]] = (i as Dict)[key];
@@ -93,7 +93,7 @@ export async function mapLeaderboard(i: {
     if (Array.isArray(i.mods ?? 0)) {
         i.mods = modsToInt(i.mods as apitypes.Mods[]);
     }
-    let params: Dict = {};
+    const params: Dict = {};
     for (const key in i) {
         if (convert[key]) {
             params[convert[key]] = (i as Dict)[key];
@@ -114,7 +114,7 @@ export async function userBestScores(i: {
 }) {
     if (!(i.user)) throw new Error('Missing user');
     const url = `/get_user_recent`;
-    let params: Dict = {};
+    const params: Dict = {};
     for (const key in i) {
         if (convert[key]) {
             params[convert[key]] = (i as Dict)[key];
@@ -135,7 +135,7 @@ export async function userRecentScores(i: {
 }) {
     if (!(i.user)) throw new Error('Missing user');
     const url = `/get_user_recent`;
-    let params: Dict = {};
+    const params: Dict = {};
     for (const key in i) {
         if (convert[key]) {
             params[convert[key]] = (i as Dict)[key];
@@ -152,7 +152,7 @@ export async function match(i: {
 }) {
     if (!(i.match_id)) throw new Error('Missing match ID');
     const url = `/get_match`;
-    let params: Dict = {
+    const params: Dict = {
         mp: i.match_id
     };
     return await helper.requests.get_v1(
@@ -176,7 +176,7 @@ export async function replay(i: {
     if (Array.isArray(i.mods ?? 0)) {
         i.mods = modsToInt(i.mods as apitypes.Mods[]);
     }
-    let params: Dict = {};
+    const params: Dict = {};
     for (const key in i) {
         if (convert[key]) {
             params[convert[key]] = (i as Dict)[key];

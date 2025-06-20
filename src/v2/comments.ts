@@ -11,6 +11,8 @@ export async function multiple(i: {
     sort?: string,
 
 }) {
+    if (!helper.allowed('public')) throw new Error('Missing scope: public');
+
     const url = `/comments`;
 
     const params = helper.setParams(i, {});
@@ -21,6 +23,8 @@ export async function multiple(i: {
 export async function single(i: {
     comment:string
 }) {
+    if (!helper.allowed('public')) throw new Error('Missing scope: public');
+    
     const url = `/comments/${i.comment}`;
 
     const params = {} as Dict;

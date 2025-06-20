@@ -12,6 +12,7 @@ export async function scores(i: {
 }) {
     if (!i.id) throw new Error('Missing beatmap ID');
     if (!i.ruleset) throw new Error('Missing ruleset');
+    if (!helper.allowed('public')) throw new Error('Missing scope: public');
 
     const url = `/beatmaps/${i.id}/scores`;
 
@@ -31,6 +32,7 @@ export async function userScore(i: {
 }) {
     if (!i.user_id) throw new Error('Missing user ID');
     if (!i.map_id) throw new Error('Missing map ID');
+    if (!helper.allowed('public')) throw new Error('Missing scope: public');
 
     const url = `/beatmaps/${i.map_id}/scores/users/${i.user_id}`;
 
@@ -48,6 +50,7 @@ export async function userScores(i: {
 }) {
     if (!i.user_id) throw new Error('Missing user ID');
     if (!i.map_id) throw new Error('Missing map ID');
+    if (!helper.allowed('public')) throw new Error('Missing scope: public');
 
     const url = `/beatmaps/${i.map_id}/scores/users/${i.user_id}/all`;
 
@@ -62,9 +65,12 @@ export async function map(i: {
     id: number;
 }) {
     if (!i.id) throw new Error('Missing beatmap ID');
+    if (!helper.allowed('public')) throw new Error('Missing scope: public');
+
     const url = `/beatmaps/${i.id}`;
-    let params: Dict = {
-    };
+
+    const params: Dict = {};
+
     return await helper.requests.get_v2(
         url, params
     ) as Promise<apitypes.BeatmapExtended>;
@@ -74,8 +80,11 @@ export async function maps(i: {
     ids: number[];
 }) {
     if (!i.ids || i.ids.length == 0) throw new Error('Missing beatmap IDs');
+    if (!helper.allowed('public')) throw new Error('Missing scope: public');
+
     const url = `/beatmaps`;
-    let params: Dict = {
+
+    const params: Dict = {
         ids: i.ids
     };
 
@@ -90,6 +99,7 @@ export async function mapLookup(i: {
     id?: number,
 }) {
     if (!(i.filename && i.checksum && i.id)) throw new Error('Please input a filename, checksum or ID to lookup');
+    if (!helper.allowed('public')) throw new Error('Missing scope: public');
 
     const url = `/beatmaps/lookup`;
 
@@ -107,8 +117,11 @@ export async function attributes(i: {
     ruleset_id?: helper.Ruleset;
 }) {
     if (!i.id) throw new Error('Missing beatmap ID');
+    if (!helper.allowed('public')) throw new Error('Missing scope: public');
+
     const url = `/beatmaps/${i.id}`;
-    let params: Dict = {
+
+    const params: Dict = {
     };
     const body = helper.setParams(i, {}, ['mods', 'ruleset', 'ruleset_id']);
 
@@ -122,9 +135,13 @@ export async function mapset(i: {
     id: number;
 }) {
     if (!i.id) throw new Error('Missing beatmapset ID');
+    if (!helper.allowed('public')) throw new Error('Missing scope: public');
+
     const url = `/beatmapsets/${i.id}`;
-    let params: Dict = {
+
+    const params: Dict = {
     };
+
     return await helper.requests.get_v2(
         url, params
     ) as Promise<apitypes.BeatmapsetExtended>;
@@ -139,6 +156,7 @@ export async function mapsetLookup(i: {
     id?: number,
 }) {
     if (!(i.filename && i.checksum && i.id)) throw new Error('Please input a filename, checksum or ID to lookup');
+    if (!helper.allowed('public')) throw new Error('Missing scope: public');
 
     const url = `/beatmapsets/lookup`;
 
@@ -152,10 +170,14 @@ export async function mapsetLookup(i: {
 export async function search(i: {
     cursor_string?: string;
 }) {
+    if (!helper.allowed('public')) throw new Error('Missing scope: public');
+
     const url = `/beatmapsets/search`;
-    let params: Dict = {
+
+    const params: Dict = {
         cursor_string: i?.cursor_string ?? ''
     };
+
     return await helper.requests.get_v2(
         url, params
     ) as Promise<apitypes.BeatmapsetSearch>;
@@ -165,10 +187,11 @@ export async function packs(i: {
     type?: string,
     cursor_string?: string;
 }) {
+    if (!helper.allowed('public')) throw new Error('Missing scope: public');
+
     const url = `/beatmaps/packs`;
 
     const params = helper.setParams(i, {}, ['type', 'cursor_string']);
-
 
     return await helper.requests.get_v2(
         url, params
@@ -179,6 +202,8 @@ export async function pack(i: {
     pack: string,
     legacy_only: 1 | 0,
 }) {
+    if (!helper.allowed('public')) throw new Error('Missing scope: public');
+    
     const url = `/beatmaps/packs/${i.pack}`;
 
     const params = helper.setParams(i, {}, ['legacy_only']);
