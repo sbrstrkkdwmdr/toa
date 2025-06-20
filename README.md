@@ -82,8 +82,8 @@ will do all public scope only routes first
 -   [x] /rooms/{room}/playlist/{playlist}/scores
 -   [ ] /rooms/{room}/playlist/{playlist}/scores/{score}
 -   [x] /rooms
--   [ ] /news
--   [ ] /news/{news}
+-   [x] /news
+-   [x] /news/{news}
 -   [ ] /notifications
 -   [ ] POST /notifications/mark-read
 -   [x] /rankings/kudosu
