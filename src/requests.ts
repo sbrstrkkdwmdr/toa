@@ -5,7 +5,7 @@ import * as helper from './helper';
 import { Dict } from './types';
 
 export function oAuth(): apitypes.OAuth {
-    const str = fs.readFileSync(`./config/osuauth.json`, 'utf-8');
+    const str = fs.readFileSync(`./osuauth.json`, 'utf-8');
     helper.credentials.auth = JSON.parse(str) as apitypes.OAuth;
     return helper.credentials.auth;
 }
@@ -41,7 +41,7 @@ export async function PostOAuth() {
             };
         })).data;
         if (newtoken?.access_token) {
-            fs.writeFileSync(`./config/osuauth.json`, JSON.stringify(newtoken));
+            fs.writeFileSync(`./osuauth.json`, JSON.stringify(newtoken));
             helper.credentials.auth = newtoken;
         }
         resolve(true);
@@ -73,8 +73,8 @@ export async function checkAuth() {
     } catch (error) {
         await PostOAuth();
     }
-    if (fs.existsSync(`./config/osuauth.json`)) {
-        const stat = fs.statSync(`./config/osuauth.json`);
+    if (fs.existsSync(`./osuauth.json`)) {
+        const stat = fs.statSync(`./osuauth.json`);
         if (helper.credentials.auth?.expires_in ?? 0 <= stat.mtimeMs) {
             await PostOAuth();
         }
@@ -88,11 +88,11 @@ export async function get_v2(url: string, params: Dict, tries: number = 0) {
         throw new Error('Exceeded try count. Please ensure credentials are valid');
     }
     const c = checkCredentials(2);
-    if (c[0]) {
+    if (!c[0]) {
         throw new Error(c[1]);
     }
     await checkAuth();
-    let inp = new URL(url);
+    let inp = new URL('https://osu.ppy.sh/api/v2' + url);
     for (const key in params) {
         if (Array.isArray(params[key])) {
             const _temp: any[] = params[key];
@@ -139,7 +139,7 @@ export async function post_v2(url: string, params: Dict, body: Dict, tries: numb
         throw new Error(c[1]);
     }
     await checkAuth();
-    let inp = new URL(url);
+    let inp = new URL('https://osu.ppy.sh/api/v2' + url);
     for (const key in params) {
         if (Array.isArray(params[key])) {
             const _temp: any[] = params[key];
@@ -188,7 +188,7 @@ export async function get_v1(url: string, params: Dict, tries: number = 0) {
         throw new Error(c[1]);
     }
     await checkAuth();
-    let inp = new URL(url);
+    let inp = new URL('https://osu.ppy.sh/api' + url);
     params.k = helper.credentials.key;
     for (const key in params) {
         if (Array.isArray(params[key])) {
